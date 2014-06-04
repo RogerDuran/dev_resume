@@ -20,3 +20,8 @@ jQuery(function($) {
 	//End goto top		
 
 });
+
+function _(x){
+	return document.getElementById(x);	
+}
+
