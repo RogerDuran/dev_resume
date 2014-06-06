@@ -1,15 +1,10 @@
 <?php
-	include_once("php_includes/check_login_status.php");
-	// If user is already logged in, header that weenis away
-	if($user_ok == true){
-	header("location: ../account/user.php?u=".$_SESSION["username"]);
-		exit();
-	}
-?><?php
+	session_start();
 	// AJAX CALLS THIS LOGIN CODE TO EXECUTE
 	if(isset($_POST["e"])){
 	// CONNECT TO THE DATABASE
 	include_once("php_includes/db_conx.php");
+
 	// GATHER THE POSTED DATA INTO LOCAL VARIABLES AND SANITIZE
 	$e = mysqli_real_escape_string($db_conx, $_POST['e']);
 	$p = $_POST['p'];
@@ -21,6 +16,7 @@
 			exit();
 	} else {
 	// END FORM DATA ERROR HANDLING
+	
 	$sql = "SELECT id, username, password FROM users WHERE email='$e' AND activated='1' LIMIT 1";
 			$query = mysqli_query($db_conx, $sql);
 			$row = mysqli_fetch_row($query);
@@ -35,8 +31,6 @@
 	
 	if (crypt($p, $pass) != $pass) {
 		echo "login_failed";
-		//echo "input: ".crypt($p). "db pass: ".$pass;
-		//echo "pass before: ".$passpre."pass after: ".$passaft;
 		exit();
 	} else {
 	// CREATE THEIR SESSIONS AND COOKIES
@@ -72,7 +66,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Home | Nova</title>
+    <title>Home | Resume.Graphics</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
 
@@ -422,28 +416,9 @@
 <!-- Call Footer -->
 <?php include_once("php_includes/footer.php"); ?>
 
-<!--  Login form -->
-<div class="modal hide fade in" id="loginForm" aria-hidden="false">
-    <div class="modal-header">
-        <i class="icon-remove" data-dismiss="modal" aria-hidden="true"></i>
-        <h4>Login Form</h4>
-    </div>
-    <!--Modal Body-->
-    <div class="modal-body">
-        <form class="form-inline" id="loginform" onSubmit="return false;">
-            <input type="text" id="email" name="email" class="input-small" placeholder="Email">
-            <input type="password" id="password" name="password" class="input-small" placeholder="Password">
-            <label class="checkbox">
-                <input type="checkbox"> Remember me
-            </label>
-            <button type="submit" id="loginbtn" class="btn btn-primary">Sign in</button>
-            <p id="status"></p>
-        </form>
-        <a href="#">Forgot your password?</a>
-    </div>
-    <!--/Modal Body-->
-</div>
-<!--  /Login form -->
+<!-- Call Login -->
+<?php include_once("php_includes/login.php"); ?>
+
 
 <script src="js/vendor/jquery-1.9.1.min.js"></script>
 <script src="js/vendor/bootstrap.min.js"></script>
