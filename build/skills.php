@@ -1,8 +1,7 @@
 <?php
 	session_start();
+	
 	if(isset($_POST['hdnFlag1'])){
-		
-		
 		//Data for Headers
 		$_SESSION['firstname'] = $_POST['txtFirstName'];
 		$_SESSION['lastname'] = $_POST['txtLastName'];
@@ -13,7 +12,15 @@
 		$_SESSION['phone'] = $_POST['txtPhone'];
 		$_SESSION['cellphone'] = $_POST['txtCellPhone'];
 		$_SESSION['email'] = $_POST['txtEmail'];
+
+	}
 	
+	if(isset($_POST['skills'])){
+		
+		//Data for skills
+		$_SESSION['skills'] = $_POST['skills'];	
+		echo $_POST['skills'];
+		exit();
 	}
 ?>
 
@@ -45,6 +52,94 @@
   <link rel="apple-touch-icon-precomposed" href="../images/ico/apple-touch-icon-57-precomposed.png">
   
   <link rel="stylesheet" href="../css/ui-lightness/jquery-ui-1.10.4.min.css">
+  
+  <style>
+  	#preview li:first-child{
+		list-style-type: none;
+		font-size: 14pt;
+	}
+	
+	#preview li{
+		line-height: 20px;
+		padding: 0px 2px;	
+	}
+
+	#preview{
+		height: 300px;
+		background-color: #FFF;
+		float: left;
+		width: 50%;
+		color: #000;
+		border-radius: 10px;
+		border: 1px solid #C0C0C0;
+		min-height: 300px;
+		height: auto;
+	}
+	
+	#preview h2 {
+		font-size: 31.5px;
+		border-bottom: 1px solid rgba(144, 144, 144, 1);
+		text-align: center;		
+	}
+	
+	#skills form{
+		margin: 0px 0px 20px;
+		width: 500px;
+		float: left;
+	}
+
+	.myButton {
+		-moz-box-shadow: 0px 1px 0px 0px #f0f7fa;
+		-webkit-box-shadow: 0px 1px 0px 0px #f0f7fa;
+		box-shadow: 0px 1px 0px 0px #f0f7fa;
+		background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #33bdef), color-stop(1, #019ad2));
+		background:-moz-linear-gradient(top, #33bdef 5%, #019ad2 100%);
+		background:-webkit-linear-gradient(top, #33bdef 5%, #019ad2 100%);
+		background:-o-linear-gradient(top, #33bdef 5%, #019ad2 100%);
+		background:-ms-linear-gradient(top, #33bdef 5%, #019ad2 100%);
+		background:linear-gradient(to bottom, #33bdef 5%, #019ad2 100%);
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#33bdef', endColorstr='#019ad2',GradientType=0);
+		background-color:#33bdef;
+		-moz-border-radius:6px;
+		-webkit-border-radius:6px;
+		border-radius:6px;
+		border:1px solid #057fd0;
+		display:inline-block;
+		cursor:pointer;
+		color:#ffffff;
+		font-family:arial;
+		font-size:15px;
+		font-weight:bold;
+		padding:6px 24px;
+		text-decoration:none;
+		text-shadow:0px -1px 0px #5b6178;
+	}
+	.myButton:hover {
+		background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #019ad2), color-stop(1, #33bdef));
+		background:-moz-linear-gradient(top, #019ad2 5%, #33bdef 100%);
+		background:-webkit-linear-gradient(top, #019ad2 5%, #33bdef 100%);
+		background:-o-linear-gradient(top, #019ad2 5%, #33bdef 100%);
+		background:-ms-linear-gradient(top, #019ad2 5%, #33bdef 100%);
+		background:linear-gradient(to bottom, #019ad2 5%, #33bdef 100%);
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#019ad2', endColorstr='#33bdef',GradientType=0);
+		background-color:#019ad2;
+	}
+	.myButton:active {
+		position:relative;
+		top:1px;
+	}
+	
+	#skills .myButton{
+		margin-bottom: 45px;
+	}
+
+	
+	#skills ul li:hover span { font-weight: bold; }
+	
+	#skills ul li img { display: none; }
+	#skills ul li:hover img { display: inline; float: right; }
+
+  </style>
     
     <body>
       <!-- CALL HEADER -->
@@ -69,26 +164,29 @@
       <!-- / .title -->       
     
       <!-- Career -->
-      <section id="career" class="container">
+      <section id="skills" class="container">
     
         <!-- Start row fluid -->
-        <div class="row-fluid"> 
+        <div id="row-fluid"> 
         
            
-        <form id="frmSkills" method="post" action="../templates/1/build.php" >
-            <label for="txtSkillTitle1">Skill 1 title: </label><input type="text" name="txtSkillTitle1" id="txtSkillTitle1">
-            <label for="txtSkill1Desc1">Skill 1 Description: </label><textarea rows="5" name="txtSkill1Desc1" id="txtSkill1Desc1"></textarea>
-            
-            <label for="txtSkillTitle2">Skill 2 title: </label><input type="text" name="txtSkillTitle2" id="txtSkillTitle2">
-            <label for="txtSkill1Desc2">Skill 2 Description: </label><textarea rows="5" name="txtSkill1Desc2" id="txtSkill1Desc2"></textarea>
-            
-            <label for="txtSkillTitle3">Skill 3 title: </label><input type="text" name="txtSkillTitle3" id="txtSkillTitle3">
-            <label for="txtSkill1Desc3">Skill 3 Description: </label><textarea rows="5" name="txtSkill1Desc3" id="txtSkill1Desc3"></textarea>
+        <form id="frmSkills" method="post" onSubmit="return false">
+            <label for="txtSkillTitle">Skill title: </label><input type="text" name="txtSkillTitle" id="txtSkillTitle">
+            <label for="txtSkill1Desc">Skill Description: </label><textarea rows="5" name="txtSkill1Desc" id="txtSkillDesc"></textarea> <br>
+            <input type="button" class="myButton" id="btnAdd" value="Add more Skill">
+
             <input type="hidden" name="hdnFlag1" id="hdnFlag1" value="True">
-            <input type="hidden" name="hdnFlag2" id="hdnFlag2" value="True">
-            <input type="submit" id="btnNext" value="NEXT">
+            <input type="hidden" name="hdnFlag2" id="hdnFlag2" value="True"> <br>
+            <input type="submit" class="myButton" id="btnNext" value="NEXT">
         </form>
-    
+    	
+        
+       		<!-- Preview -->
+        	<div id="preview">
+            	<h2> Skills </h2>
+            </div>
+            <!-- End of Preview -->
+        
          </div>
          <!-- End row fluid -->
          
@@ -117,6 +215,7 @@
               <button type="submit" class="btn btn-primary">Sign in</button>
             </form>
             <a href="#">Forgot your password?</a>
+            
           </div>
           <!--/Modal Body-->
         </div>
@@ -127,6 +226,58 @@
     <script src="../js/main.js"></script>
     <script src="../js/jquery.validate.min.js"></script>
     <script src="../js/jquery-ui-1.10.4.min.js"></script>
+    <script>
+		$(document).ready(function() {
+			var skills='';
+			var id = 0;
+            $("#btnAdd").click(function(){
+				var skilltitle = $("#txtSkillTitle").val();
+				var skilldesc = $("#txtSkillDesc").val();
+				var myid = id++;
+				//Display
+				$("#preview").append("<ul id="+myid+"><li>"+skilltitle+"<img class='delete_btn' src='../images/red_cross_mark.gif'/></li> <li>"+skilldesc+"</li></ul>")
+				
+				//Store in array for resume template
+				
+				skills += "<div class='talent'><h2>"+skilltitle+"</h2><p>"+skilldesc+"</p></div>";
+				
+			});
+			
+			$("#btnNext").click(function() {
+				var data = "skills="+skills+"&hdnflag2=true";
+				$.ajax({
+					type: "POST",
+					url: "skills.php",
+					data: data,
+					cache: false,
+					success:  function(data){
+						window.location = "http://dev.resume.kristenclosson.local/templates/1/build.php";
+					}
+				});
+            });
+			
+			//Mouse over skills update and delete function
+			
+			$(document).on('mouseover','#preview ul',function(){
+				$(this).css("background-color","red");
+				
+				var me = $(this).get(0).id;
+				var del = "#"+me;
+				//alert(me);
+				
+				$(del+" .delete_btn").click(function() {
+					$(del).remove();
+                });
+
+			});
+			
+			$(document).on('mouseleave','ul',function(){
+				$(this).css("background-color","#fff");
+			});
+			
+        });
+	
+	</script>
 
 
     </body>

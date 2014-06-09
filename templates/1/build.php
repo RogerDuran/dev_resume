@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	if(isset($_POST['hdnFlag1']) && isset($_POST['hdnFlag2'])){
+	if(isset($_SESSION['skills'])){
 		
 		//Data for Headers
 		$firstname = $_SESSION['firstname'];
@@ -15,14 +15,7 @@
 		
 		
 		//Data for Skills
-		$skill1Title = $_POST['txtSkillTitle1'];
-		$skill1Desc = $_POST['txtSkill1Desc1'];
-		
-		$skill2Title = $_POST['txtSkillTitle2'];
-		$skill2Desc = $_POST['txtSkill1Desc2'];
-		
-		$skill3Title = $_POST['txtSkillTitle3'];
-		$skill3Desc = $_POST['txtSkill1Desc3'];
+		$skills = $_SESSION['skills'];
 	}
 
 ?>
@@ -83,21 +76,9 @@
 							<h2>Skills</h2>
 						</div>
 						<div class="yui-u">
-
-								<div class="talent">
-									<h2><?php echo $skill1Title ?></h2>
-									<p><?php echo $skill1Desc ?></p>
-								</div>
-
-								<div class="talent">
-									<h2>Interface Design</h2>
-									<p>Credibly streamline mission-critical value with multifunctional functionalities.	 </p>
-								</div>
-
-								<div class="talent">
-									<h2>Project Direction</h2>
-									<p>Proven ability to lead and manage a wide variety of design and development projects in team and independent situations.</p>
-								</div>
+							<!-- Skills -->
+                            
+                            <?php echo $skills; ?>                                
 						</div>
 					</div><!--// .yui-gf -->
 
