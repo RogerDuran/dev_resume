@@ -134,10 +134,10 @@
 	}
 
 	
-	#skills ul li:hover span { font-weight: bold; }
+	#skills ul:hover span { font-weight: bold; }
 	
-	#skills ul li img { display: none; }
-	#skills ul li:hover img { display: inline; float: right; }
+	#skills ul img { display: none; }
+	#skills ul:hover img { display: inline; float: right; margin-left:20px; }
 
   </style>
     
@@ -179,6 +179,20 @@
             <input type="hidden" name="hdnFlag2" id="hdnFlag2" value="True"> <br>
             <input type="submit" class="myButton" id="btnNext" value="NEXT">
         </form>
+        
+        	<!-- Modal Edit Popup  -->
+            <div id="modal-edit" class="modal hide fade">
+                <a class="close-modal" href="javascript:;" data-dismiss="modal" aria-hidden="true"><i class="icon-remove"></i></a>
+                <div class="modal-body">
+                	<h2> Update Skill Info </h2>
+                    <form id="frmEditSkills" method="post" onSubmit="return false">
+                        <label for="txtEditSkillTitle">Skill title: </label><input type="text" name="txtEditSkillTitle" id="txtEditSkillTitle">
+                        <label for="txtEditSkillDesc">Skill Description: </label><textarea rows="5" name="txtEditSkillDesc" id="txtEditSkillDesc"></textarea> <br>
+                        <input type="button" class="myButton" id="btnUpdate" value="Save">
+                        
+                    </form>
+                </div>
+            </div>  
     	
         
        		<!-- Preview -->
@@ -228,23 +242,26 @@
     <script src="../js/jquery-ui-1.10.4.min.js"></script>
     <script>
 		$(document).ready(function() {
-			var skills='';
 			var id = 0;
             $("#btnAdd").click(function(){
 				var skilltitle = $("#txtSkillTitle").val();
 				var skilldesc = $("#txtSkillDesc").val();
 				var myid = id++;
 				//Display
-				$("#preview").append("<ul id="+myid+"><li>"+skilltitle+"<img class='delete_btn' src='../images/red_cross_mark.gif'/></li> <li>"+skilldesc+"</li></ul>")
+				$("#preview").append("<ul class='talent' id="+myid+"><li>"+skilltitle+"<img class='delete_btn' src='../images/red_cross_mark.png'/><a data-toggle='modal' href='#modal-edit' ><img class='edit_btn' src='../images/edit.png'/></a></li> <li>"+skilldesc+"</li></ul>")
 				
 				//Store in array for resume template
-				
-				skills += "<div class='talent'><h2>"+skilltitle+"</h2><p>"+skilldesc+"</p></div>";
 				
 			});
 			
 			$("#btnNext").click(function() {
-				var data = "skills="+skills+"&hdnflag2=true";
+				$('#preview h2').remove();
+				var skills = $("#preview").html();
+			    var content = skills.replace(/<img[^>]*>/gi,"");
+				
+
+				alert( content );
+				var data = "skills="+content+"&hdnflag2=true";
 				$.ajax({
 					type: "POST",
 					url: "skills.php",
@@ -259,7 +276,7 @@
 			//Mouse over skills update and delete function
 			
 			$(document).on('mouseover','#preview ul',function(){
-				$(this).css("background-color","red");
+				$(this).css("background-color","#F2FF7A");
 				
 				var me = $(this).get(0).id;
 				var del = "#"+me;
@@ -268,10 +285,29 @@
 				$(del+" .delete_btn").click(function() {
 					$(del).remove();
                 });
+				
+				$(del+" .edit_btn").click(function() {
+					var skillTitleVal = $("ul"+del+" li:first").text();
+					var skillDescVal = $("ul"+del+" li:nth-child(2)").text();
+					//alert(skillDescVal);
+					
+					//Insert val to form popup
+					$("#txtEditSkillTitle").val(skillTitleVal);
+					$("#txtEditSkillDesc").val(skillDescVal);
+					
+					$("#btnUpdate").click(function() {
+						
+						var title = $("#txtEditSkillTitle").val() + "<img class='delete_btn' src='../images/red_cross_mark.png'/><a data-toggle='modal' href='#modal-edit' ><img class='edit_btn' src='../images/edit.png'/></a></li>";
+						
+						$("ul"+del+" li:first").html(title);
+                        $("ul"+del+" li:nth-child(2)").text($("#txtEditSkillDesc").val());
+						del = null;
+                    });
+                });
 
 			});
 			
-			$(document).on('mouseleave','ul',function(){
+			$(document).on('mouseleave','#preview ul',function(){
 				$(this).css("background-color","#fff");
 			});
 			

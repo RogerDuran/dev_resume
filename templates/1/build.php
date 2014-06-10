@@ -77,7 +77,6 @@
 						</div>
 						<div class="yui-u">
 							<!-- Skills -->
-                            
                             <?php echo $skills; ?>                                
 						</div>
 					</div><!--// .yui-gf -->
