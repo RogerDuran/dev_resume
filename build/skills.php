@@ -138,6 +138,15 @@
 	
 	#skills ul img { display: none; }
 	#skills ul:hover img { display: inline; float: right; margin-left:20px; }
+	
+	label.error{
+		display:block;
+		color:red;	
+	}
+	
+	input.error{
+		border: 1px solid red;
+	}
 
   </style>
     
@@ -155,7 +164,7 @@
               <ul class="breadcrumb pull-right">
                 <li><a href="index.html">Home</a> <span class="divider">/</span></li>
                 <li><a href="#">Pages</a> <span class="divider">/</span></li>
-                <li class="active">Career</li>
+                <li class="active">Skills</li>
               </ul>
             </div>
           </div>
@@ -172,8 +181,8 @@
            
         <form id="frmSkills" method="post" onSubmit="return false">
             <label for="txtSkillTitle">Skill title: </label><input type="text" name="txtSkillTitle" id="txtSkillTitle">
-            <label for="txtSkill1Desc">Skill Description: </label><textarea rows="5" name="txtSkill1Desc" id="txtSkillDesc"></textarea> <br>
-            <input type="button" class="myButton" id="btnAdd" value="Add more Skill">
+            <label for="txtSkillDesc">Skill Description: </label><textarea rows="5" name="txtSkillDesc" id="txtSkillDesc"></textarea> <br>
+            <input type="button" class="myButton" id="btnAdd" value="Add Skill">
 
             <input type="hidden" name="hdnFlag1" id="hdnFlag1" value="True">
             <input type="hidden" name="hdnFlag2" id="hdnFlag2" value="True"> <br>
@@ -193,8 +202,7 @@
                     </form>
                 </div>
             </div>  
-    	
-        
+            
        		<!-- Preview -->
         	<div id="preview">
             	<h2> Skills </h2>
@@ -212,28 +220,9 @@
         <!-- Call Footer -->
         <?php include_once("../php_includes/footer.php"); ?>
         
-        <!--  Login form -->
-        <div class="modal hide fade in" id="loginForm" aria-hidden="false">
-          <div class="modal-header">
-            <i class="icon-remove" data-dismiss="modal" aria-hidden="true"></i>
-            <h4>Login Form</h4>
-          </div>
-          <!--Modal Body-->
-          <div class="modal-body">
-            <form class="form-inline" action="index.html" method="post" id="form-login">
-              <input type="text" class="input-small" placeholder="Email">
-              <input type="password" class="input-small" placeholder="Password">
-              <label class="checkbox">
-                <input type="checkbox"> Remember me
-              </label>
-              <button type="submit" class="btn btn-primary">Sign in</button>
-            </form>
-            <a href="#">Forgot your password?</a>
-            
-          </div>
-          <!--/Modal Body-->
-        </div>
-        <!--  /Login form -->
+        <!-- Call Login -->
+        <?php include_once("../php_includes/login.php"); ?>
+        
 
 	<script src="../js/vendor/jquery-1.9.1.min.js"></script>
     <script src="../js/vendor/bootstrap.min.js"></script>
@@ -247,10 +236,26 @@
 				var skilltitle = $("#txtSkillTitle").val();
 				var skilldesc = $("#txtSkillDesc").val();
 				var myid = id++;
-				//Display
-				$("#preview").append("<ul class='talent' id="+myid+"><li>"+skilltitle+"<img class='delete_btn' src='../images/red_cross_mark.png'/><a data-toggle='modal' href='#modal-edit' ><img class='edit_btn' src='../images/edit.png'/></a></li> <li>"+skilldesc+"</li></ul>")
 				
-				//Store in array for resume template
+				
+				//Validate Form first
+				$("#frmSkills").validate({
+				  rules:{
+					  txtSkillTitle:{
+						  required: true,
+					  },
+					  txtSkillDesc:{
+						  required: true,	
+					  }
+				  }
+				});
+				
+				if($("#frmSkills").valid()){
+				
+					//Display
+					$("#preview").append("<ul class='talent' id="+myid+"><li>"+skilltitle+"<img class='delete_btn' src='../images/red_cross_mark.png'/><a data-toggle='modal' href='#modal-edit' ><img class='edit_btn' src='../images/edit.png'/></a></li> <li>"+skilldesc+"</li></ul>")
+				
+				}
 				
 			});
 			
@@ -258,9 +263,8 @@
 				$('#preview h2').remove();
 				var skills = $("#preview").html();
 			    var content = skills.replace(/<img[^>]*>/gi,"");
-				
 
-				alert( content );
+				//alert( content );
 				var data = "skills="+content+"&hdnflag2=true";
 				$.ajax({
 					type: "POST",
@@ -297,11 +301,29 @@
 					
 					$("#btnUpdate").click(function() {
 						
-						var title = $("#txtEditSkillTitle").val() + "<img class='delete_btn' src='../images/red_cross_mark.png'/><a data-toggle='modal' href='#modal-edit' ><img class='edit_btn' src='../images/edit.png'/></a></li>";
+						//Validate Form first
+						$("#frmEditSkills").validate({
+						  rules:{
+							  txtEditSkillTitle:{
+								  required: true,
+							  },
+							  txtEditSkillDesc:{
+								  required: true,	
+							  }
+						  }
+						});
 						
-						$("ul"+del+" li:first").html(title);
-                        $("ul"+del+" li:nth-child(2)").text($("#txtEditSkillDesc").val());
-						del = null;
+						if($("#frmEditSkills").valid()){
+						
+							var title = $("#txtEditSkillTitle").val() + "<img class='delete_btn' src='../images/red_cross_mark.png'/><a data-toggle='modal' href='#modal-edit' ><img class='edit_btn' src='../images/edit.png'/></a></li>";
+							
+							$("ul"+del+" li:first").html(title);
+							$("ul"+del+" li:nth-child(2)").text($("#txtEditSkillDesc").val());
+		
+							del = null;
+							$('#modal-edit').modal('hide');
+						
+						} // End of validation
                     });
                 });
 
