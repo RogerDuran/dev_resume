@@ -1,0 +1,22 @@
+<option value="-1">Select...</option>
+<option value="High School Diploma">High School Diploma</option>
+<option value="GED">GED</option>
+<option value="0">------------------------------------------------</option>
+<option selected="selected" value="Associate of Arts">Associate of Arts</option>
+<option value="Associate of Science">Associate of Science</option>
+<option value="Associate of Applied Science">Associate of Applied Science</option>
+<option value="0">------------------------------------------------</option>
+<option value="Bachelor of Arts">Bachelor of Arts</option>
+<option value="Bachelor of Science">Bachelor of Science</option>
+<option value="BBA">BBA</option>
+<option value="0">------------------------------------------------</option>
+<option value="Master of Arts">Master of Arts</option>
+<option value="Master of Science">Master of Science</option>
+<option value="MBA">MBA</option>
+<option value="0">------------------------------------------------</option>
+<option value="JD">J.D.</option>
+<option value="MD">M.D.</option>
+<option value="PHD">Ph.D.</option>
+<option value="0">------------------------------------------------</option>
+<option value="-3">Enter your degree</option>
+<option value="0">------------------------------------------------</option>
