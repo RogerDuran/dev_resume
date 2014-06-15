@@ -40,7 +40,7 @@ $(document).ready(function() {
 		  data: data,
 		  cache: false,
 		  success:  function(data){
-			  window.location = "http://dev.resume.kristenclosson.local/build/experience.php";
+			  window.location = "http://dev.resume.kristenclosson.com/build/experience.php";
 		  }
 	  });
   });

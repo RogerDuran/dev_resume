@@ -75,3 +75,67 @@ a#pdf:hover { background: #222; }
 .yui-gf div.first{width:12.3%;}
 
 
+					/* Section Style */
+
+/* Experience Style */
+#experience li{
+	border-bottom:none;
+}
+
+#experience li:first-child{
+	display:inline;
+	font-size: 152%;
+}
+
+#experience li:nth-child(2){
+	float:right;
+}
+
+#experience li:nth-child(3){
+	font-size: 122%;
+}
+
+#experience ul{
+	border-bottom: 1px solid #D1D1D1;
+	margin-bottom: 1em;
+	padding-bottom: 1em;
+	margin-bottom: 10px;
+}
+
+#experience ul:last-child{
+	border-bottom:none;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+
+/* Education Style */
+
+#education li{
+	border-bottom:none;
+}
+
+#education li:first-child{
+	display:inline;
+	font-size: 152%;
+}
+
+#education li:nth-child(2){
+	float:right;
+}
+
+#education li:nth-child(3){
+	font-size: 122%;
+}
+
+#education ul{
+	border-bottom: 1px solid #D1D1D1;
+	margin-bottom: 1em;
+	padding-bottom: 1em;
+	margin-bottom: 10px;
+}
+
+#education ul:last-child{
+	border-bottom:none;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}

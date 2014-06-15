@@ -42,16 +42,19 @@
 		  var myid = id++;
 		  
 		  //Validate Form first
-		  /*
-		  $("#frmExperience").validate({
+		  
+		  $("#frmEducation").validate({
 			rules:{
-				txtEmployer:{
+				txtSchoolName:{
 					required: true,
 				},
-				txtJobTitle:{
+				txtSchoolLocation:{
 					required: true,	
 				},
-				txtJobDesc:{
+				txtDegree:{
+					required: true,	
+				},
+				txtStudyField:{
 					required: true,	
 				},
 				from:{
@@ -62,8 +65,8 @@
 				}
 			}
 		  });
-		  */
-		  //if($("#frmExperience").valid()){
+		  
+		  if($("#frmEducation").valid()){
 			  //Get Date
 			  var obj1 = new Date($( "#from" ).val());
 			  var obj2 = new Date($( "#to" ).val());
@@ -77,9 +80,9 @@
 
 			  
 			  //Display
-			  $("#preview ul.sortable-item").append("<li>  <ul class='sort-child' id="+myid+"><li>"+schoolName+"<img class='delete_btn' src='../images/red_cross_mark.png'/><a data-toggle='modal' href='#modal-edit' ><img class='edit_btn' src='../images/edit.png'/></a></li> <li>"+schoolLocation+"</li> <li>"+degree+"</li> <li>"+fieldStudy+"</li> <li>"+dateFrom +" - " + dateTo +" </li> </ul>  </li>")
+			  $("#preview ul.sortable-item").append("<li>  <ul class='sort-child' id="+myid+"><li>"+schoolName+"<img class='delete_btn' src='../images/red_cross_mark.png'/><a data-toggle='modal' href='#modal-edit' ><img class='edit_btn' src='../images/edit.png'/></a></li><li><h4>"+dateFrom +" - " + dateTo +"</h4> </li><li>"+schoolLocation+"</li> <li>"+degree+"</li><li>"+fieldStudy+"</li> </ul>  </li>")
 		  
-		  //}//End of validation
+		  }//End of validation
 		  
 	  });
 	  
@@ -102,7 +105,7 @@
 			  data: data,
 			  cache: false,
 			  success:  function(data){
-				  window.location = "http://dev.resume.kristenclosson.local/templates/1/build.php";
+				  window.location = "http://dev.resume.kristenclosson.com/templates/1/build.php";
 			  }
 		  });
 	  });
@@ -159,9 +162,9 @@
 			  //Init variables
 			  
 			  var schoolName = $("ul"+del+" li:nth-child(1)").text();
-			  var schoolLocation = $("ul"+del+" li:nth-child(2)").text();
-			  var degree =  $("ul"+del+" li:nth-child(3)").text();
-			  var studyField =  $("ul"+del+" li:nth-child(4)").text();
+			  var schoolLocation = $("ul"+del+" li:nth-child(3)").text();
+			  var degree =  $("ul"+del+" li:nth-child(4)").text();
+			  var studyField =  $("ul"+del+" li:nth-child(5)").text();
 			  //alert(degree);
 			  
 			  //Insert val to form popup
@@ -172,28 +175,32 @@
 			  
 			  $("#btnUpdate").click(function() {
 				  
-			  //Validate Form first
-			  /*$("#frmEditEducation").validate({
-				rules:{
-					txtEditEmployer:{
-						required: true,
-					},
-					txtEditJobTitle:{
-						required: true,	
-					},
-					txtEditJobDesc:{
-						required: true,	
-					},
-					fromEdit:{
-						required: true,	
-					},
-					toEdit:{
-						required: true,	
+				  //Validate Form first
+				  
+				  $("#frmEditEducation").validate({
+					rules:{
+						txtEditSchoolName:{
+							required: true,
+						},
+						txtEditSchoolLocation:{
+							required: true,	
+						},
+						txtEditDegree:{
+							required: true,	
+						},
+						txtEditStudyField:{
+							required: true,	
+						},
+						fromEdit:{
+							required: true,	
+						},
+						toEdit:{
+							required: true,	
+						}
 					}
-				}
-			  }); */
-			  
-				  //if($("#frmEditExperience").valid()){
+				  });
+				  
+				  if($("#frmEditEducation").valid()){
 				  
 					  //Get Date
 					  var obj1 = new Date($( "#fromEdit" ).val());
@@ -209,15 +216,16 @@
 					  var title = $("#txtEditSchoolName").val() + "<img class='delete_btn' src='../images/red_cross_mark.png'/><a data-toggle='modal' href='#modal-edit' ><img class='edit_btn' src='../images/edit.png'/></a></li>";
 					  
 					  $("ul"+del+" li:nth-child(1)").html(title);
-					  $("ul"+del+" li:nth-child(2)").text($("#txtEditSchoolLocation").val());	//
-					  $("ul"+del+" li:nth-child(3)").text($("#txtEditDegree ").val());	//
-					  $("ul"+del+" li:nth-child(4)").text($("#txtEditStudyField").val());
-					  $("ul"+del+" li:nth-child(5)").text(dateFrom+" - "+dateTo);	//
+					  $("ul"+del+" li:nth-child(2)").html("<h4>"+dateFrom+" - "+dateTo+"</h4>");	//
+					  $("ul"+del+" li:nth-child(3)").text($("#txtEditSchoolLocation").val());	//
+					  $("ul"+del+" li:nth-child(4)").text($("#txtEditDegree ").val());	//
+					  $("ul"+del+" li:nth-child(5)").text($("#txtEditStudyField").val());
+					  
 					  del = null;
 					  
 					  $('#modal-edit').modal('hide');
 				  
-				  //}//End of validation
+				  }//End of validation
 			  });
 		  });
 

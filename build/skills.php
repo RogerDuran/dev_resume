@@ -9,6 +9,10 @@
 		$_SESSION['city'] = $_POST['txtCity'];
 		$_SESSION['state'] = $_POST['txtState'];
 		$_SESSION['zip'] = $_POST['txtZip'];
+		
+		$_SESSION['jobTitle'] = $_POST['txtJobTitle'];
+		$_SESSION['txtProfile'] = $_POST['txtProfile'];
+		
 		$_SESSION['phone'] = $_POST['txtPhone'];
 		$_SESSION['cellphone'] = $_POST['txtCellPhone'];
 		$_SESSION['email'] = $_POST['txtEmail'];

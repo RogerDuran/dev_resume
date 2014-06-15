@@ -37,7 +37,7 @@
 		  var jobtitle = $("#txtJobTitle").val();
 		  var jobdesc = $("#txtJobDesc").val();
 		  var myid = id++;
-		  /*
+		  
 		  //Validate Form first
 		  $("#frmExperience").validate({
 			rules:{
@@ -58,8 +58,8 @@
 				}
 			}
 		  });
-		  */
-		  //if($("#frmExperience").valid()){
+		  
+		  if($("#frmExperience").valid()){
 			  //Get Date
 			  var obj1 = new Date($( "#from" ).val());
 			  var obj2 = new Date($( "#to" ).val());
@@ -75,7 +75,7 @@
 			  //Display
 			  $("#preview ul.sortable-item").append("<li>  <ul class='sort-child' id="+myid+"><li>"+employer+"<img class='delete_btn' src='../images/red_cross_mark.png'/><a data-toggle='modal' href='#modal-edit' ><img class='edit_btn' src='../images/edit.png'/></a></li><li> <h4>"+dateFrom +" - " + dateTo +" </h4> </li> <li>"+jobtitle+"</li>  <li> "+jobdesc+" </li></ul>  </li>")
 		  
-		  //}//End of validation
+		  }//End of validation
 		  
 	  });
 	  
@@ -96,7 +96,7 @@
 			  data: data,
 			  cache: false,
 			  success:  function(data){
-				  window.location = "http://dev.resume.kristenclosson.local/build/education.php";
+				  window.location = "http://dev.resume.kristenclosson.com/build/education.php";
 			  }
 		  });
 	  });

@@ -13,6 +13,8 @@
 		$cellphone = $_SESSION['cellphone'];
 		$email = $_SESSION['email'];
 		
+		$txtProfile = $_SESSION['txtProfile'];
+		$jobTitle = $_SESSION['jobTitle'];
 		
 		//Data for Skills
 		$skills = $_SESSION['skills'];
@@ -30,7 +32,7 @@
 <html>
 <head>
 
-	<title>Jonathan Doe | Web Designer, Director | name@yourdomain.com</title>
+	<title><?php echo $firstname." ".$lastname ?> | Web Designer, Director | <?php echo $email ?></title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
 	<meta name="keywords" content="" />
@@ -49,14 +51,15 @@
 			<div class="yui-gc">
 				<div class="yui-u first">
 					<h1><?php echo $firstname.' '.$lastname ?></h1> <!-- Name -->
-					<h2>Web Designer, Director</h2> <!-- Title -->
+					<h2><?php echo $jobTitle ?></h2> <!-- Title -->
 				</div>
 
 				<div class="yui-u">
 					<div class="contact-info">
-						<h3><a id="pdf" href="#">Download PDF</a></h3>
-						<h3><a href="mailto:name@yourdomain.com"><?php echo $email ?></a></h3> <!-- Email -->
+						<h3><a href="mailto:<?php echo $email ?>"><?php echo $email ?></a></h3> <!-- Email -->
 						<h3><?php echo $phone ?></h3> <!-- Phone Number -->
+                        <h3><?php echo $address ?> </h3>
+                        <h3><?php echo $city." ".$state ?> </h3>
 					</div><!--// .contact-info -->
 				</div>
 			</div><!--// .yui-gc -->
@@ -72,7 +75,7 @@
 						</div>
 						<div class="yui-u">
 							<p class="enlarge">
-								Progressively evolve cross-platform ideas before impactful infomediaries. Energistically visualize tactical initiatives before cross-media catalysts for change. 
+								<?php echo $txtProfile; ?>
 							</p>
 						</div>
 					</div><!--// .yui-gf -->
@@ -88,39 +91,16 @@
 					</div><!--// .yui-gf -->
 
 					<div class="yui-gf">
-						<div class="yui-u first">
-							<h2>Technical</h2>
-						</div>
-						<div class="yui-u">
-							<ul class="talent">
-								<li>XHTML</li>
-								<li>CSS</li>
-								<li class="last">Javascript</li>
-							</ul>
-
-							<ul class="talent">
-								<li>Jquery</li>
-								<li>PHP</li>
-								<li class="last">CVS / Subversion</li>
-							</ul>
-
-							<ul class="talent">
-								<li>OS X</li>
-								<li>Windows XP/Vista</li>
-								<li class="last">Linux</li>
-							</ul>
-						</div>
-					</div><!--// .yui-gf-->
-
-					<div class="yui-gf">
 	
 						<div class="yui-u first">
 							<h2>Experience</h2>
 						</div><!--// .yui-u -->
-
-						<div class="yui-u">
-							<?php echo $experience; ?>
-						</div><!--// .yui-u -->
+						
+                        <section id="experience">
+                            <div class="yui-u">
+                                <?php echo $experience; ?>
+                            </div><!--// .yui-u -->
+                        </section>
 					</div><!--// .yui-gf -->
 
 
@@ -128,9 +108,11 @@
 						<div class="yui-u first">
 							<h2>Education</h2>
 						</div>
-						<div class="yui-u">
-                        	<?php echo $education ?>
-						</div>
+                        <section id="education">
+                            <div class="yui-u">
+                                <?php echo $education ?>
+                            </div>
+                        </section>
 					</div><!--// .yui-gf -->
 
 
@@ -139,7 +121,7 @@
 		</div><!--// bd -->
 
 		<div id="ft">
-			<p>Jonathan Doe &mdash; <a href="mailto:name@yourdomain.com">name@yourdomain.com</a> &mdash; (313) - 867-5309</p>
+			<p><?php echo $firstname." ".$lastname ?> &mdash; <a href="mailto:<?php echo $email ?>"><?php echo $email ?></a> &mdash; <?php $phone ?></p>
 		</div><!--// footer -->
 
 	</div><!-- // inner -->

@@ -62,8 +62,10 @@
   
  	#preview ul.sort-child li:first-child{
 		line-height: 20px;
-		padding: 0px 2px;	
-		list-style-type:none;
+		padding: 0px 2px;
+		list-style-type: none;
+		font-size: 16pt;
+		font-weight: bold;
 	}
   
 	#preview li{
@@ -206,7 +208,7 @@
             <input type="checkbox" id="chkCurrent"><label for="chkCurrent" style="display: inline; padding: 10px;">I currently attend here</label>
             
 			<br>
-            <input type="button" class="myButton" id="btnAdd" value="Add Job">
+            <input type="button" class="myButton" id="btnAdd" value="Add School">
 
             <input type="hidden" name="hdnFlag1" id="hdnFlag1" value="True">
             <input type="hidden" name="hdnFlag2" id="hdnFlag2" value="True"> <br>

@@ -64,6 +64,8 @@
 		line-height: 20px;
 		padding: 0px 2px;	
 		list-style-type:none;
+		font-size:16pt;
+		font-weight: bold;
 	}
   
 	#preview li{
