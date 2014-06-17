@@ -199,13 +199,19 @@
             </select>
             
             <label for="txtStudyField">Field of Study: </label><input type="text" name="txtStudyField" id="txtStudyField">
+            <br>
+            <button id="btnAddDate" class="myButton">Add Date</button>
+            <p id="hdnContent" style="width:400px">
+                <label for="from">Start Date</label>
+                <input type="text" id="from" name="from">
+                <label for="to">End Date</label>
+                <input type="text" id="to" name="to"> 
+                
+                <br>
+          
+            	<input type="checkbox" id="chkCurrent"><label for="chkCurrent" style="display: inline; padding: 10px;">I currently attend here</label>
             
-            <label for="from">Start Date</label>
-            <input type="text" id="from" name="from">
-            <label for="to">End Date</label>
-            <input type="text" id="to" name="to"> 
-            
-            <input type="checkbox" id="chkCurrent"><label for="chkCurrent" style="display: inline; padding: 10px;">I currently attend here</label>
+            </p>
             
 			<br>
             <input type="button" class="myButton" id="btnAdd" value="Add School">
@@ -252,11 +258,12 @@
                             </select>
                             
                             <label for="txtEditStudyField">Field of Study: </label><input type="text" name="txtEditStudyField" id="txtEditStudyField">
-                            
+
                             <label for="fromEdit">Start Date</label>
                             <input type="text" id="fromEdit" name="fromEdit">
                             <label for="toEdit">End Date</label>
                             <input type="text" id="toEdit" name="toEdit"> 
+                        
                             
                             <input type="checkbox" id="chkEditCurrent"><label for="chkEditCurrent" style="display: inline; padding: 10px;">I currently attend here</label>
                             

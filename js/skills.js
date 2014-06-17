@@ -23,7 +23,9 @@ $(document).ready(function() {
 		  //Display
 		  $("#preview").append("<ul class='talent' id="+myid+"><li>"+skilltitle+"<img class='delete_btn' src='../images/red_cross_mark.png'/><a data-toggle='modal' href='#modal-edit' ><img class='edit_btn' src='../images/edit.png'/></a></li> <li>"+skilldesc+"</li></ul>")
 	  
-	  }
+	  }  // end of validation
+	  
+	  clearFields($(this));	//Clear fields -- Main.js function
 	  
   });
   
@@ -40,7 +42,8 @@ $(document).ready(function() {
 		  data: data,
 		  cache: false,
 		  success:  function(data){
-			  window.location = "http://dev.resume.kristenclosson.com/build/experience.php";
+			  // getServername() function from main.js
+			  window.location = getServername() + "/build/experience.php";
 		  }
 	  });
   });

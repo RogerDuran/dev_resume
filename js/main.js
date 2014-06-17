@@ -25,3 +25,12 @@ function _(x){
 	return document.getElementById(x);	
 }
 
+function clearFields(e){
+	e.closest('form').find('input[type=text], textarea').val('');
+}
+
+function getServername(){
+	var root = location.protocol + '//' + location.host;	
+	return root;
+}
+

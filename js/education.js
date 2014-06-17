@@ -1,5 +1,16 @@
   $(document).ready(function() {
 	  var id = 0;	
+	  
+	  var hdnContent = ("#hdnContent");
+	  $(hdnContent).hide();
+	  
+	  var toggleFlag = 0;
+	  
+	  $( "#btnAddDate" ).click(function() {
+		$( "#hdnContent" ).slideToggle( "slow" );
+		toggleFlag = 1;
+		
+	  });
 		  
 	  //Date Picker
 	  $("#chkCurrent").click(function() {
@@ -41,8 +52,7 @@
 		  //Auto generate element ID
 		  var myid = id++;
 		  
-		  //Validate Form first
-		  
+		  //Validate Form first	  
 		  $("#frmEducation").validate({
 			rules:{
 				txtSchoolName:{
@@ -77,37 +87,55 @@
 			  }else{
 				  var dateTo = obj2.toString("MMMM yyyy");
 			  }
-
 			  
-			  //Display
-			  $("#preview ul.sortable-item").append("<li>  <ul class='sort-child' id="+myid+"><li>"+schoolName+"<img class='delete_btn' src='../images/red_cross_mark.png'/><a data-toggle='modal' href='#modal-edit' ><img class='edit_btn' src='../images/edit.png'/></a></li><li><h4>"+dateFrom +" - " + dateTo +"</h4> </li><li>"+schoolLocation+"</li> <li>"+degree+"</li><li>"+fieldStudy+"</li> </ul>  </li>")
+			  //Display in div#preview 
+			  if(toggleFlag == 1){	//with education date
+			  	$("#preview ul.sortable-item").append("<li>  <ul class='sort-child' id="+myid+"><li>"+schoolName+"<img class='delete_btn' src='../images/red_cross_mark.png'/><a data-toggle='modal' href='#modal-edit' ><img class='edit_btn' src='../images/edit.png'/></a></li><li><h4>"+dateFrom +" - " + dateTo +"</h4> </li><li>"+schoolLocation+"</li> <li>"+degree+"</li><li>"+fieldStudy+"</li> </ul>  </li>")
+			  }
+			  else{					//without education date
+			  	$("#preview ul.sortable-item").append("<li>  <ul class='sort-child' id="+myid+"><li>"+schoolName+"<img class='delete_btn' src='../images/red_cross_mark.png'/><a data-toggle='modal' href='#modal-edit' ><img class='edit_btn' src='../images/edit.png'/></a></li><li>"+schoolLocation+"</li> <li>"+degree+"</li><li>"+fieldStudy+"</li> </ul>  </li>")	  
+			  }
 		  
 		  }//End of validation
+		  
+		  
+		   // <------------------ Reset Values
+
+		   if(toggleFlag==1){
+			   toggleFlag = 0;   
+			   $(hdnContent).hide();	//Hide date
+		   }
+		   else{
+			   $(hdnContent).hide();	//Hide date
+		   }
+		   
+		   clearFields($(this));	//Clear fields -- Main.js function
 		  
 	  });
 	  
 	  $("#btnNext").click(function() {
-		  $('#preview h2').remove();
-		  var education = [];
-		  
-		  $("#preview ul.sortable-item ul").each(function() {
-            var current = $(this);
-			education += "<ul>"+current.html()+"</ul>";
-          });
-		  
-		  
-		  var content = education.replace(/<img[^>]*>/gi,"");
-		  
-		  var data = "education="+content+"&hdnflag2=true";
-		  $.ajax({
-			  type: "POST",
-			  url: "education.php",
-			  data: data,
-			  cache: false,
-			  success:  function(data){
-				  window.location = "http://dev.resume.kristenclosson.com/templates/1/build.php";
-			  }
-		  });
+			$('#preview h2').remove();
+			var education = [];
+			
+			$("#preview ul.sortable-item ul").each(function() {
+			  var current = $(this);
+			  education += "<ul>"+current.html()+"</ul>";
+			});
+			
+			if(education != "")
+				var content = education.replace(/<img[^>]*>/gi,"");
+			
+			var data = "education="+content+"&hdnflag2=true";
+			$.ajax({
+				type: "POST",
+				url: "education.php",
+				data: data,
+				cache: false,
+				success:  function(data){
+					// getServername() function from main.js
+					window.location = getServername() + "/templates/1/build.php";
+				}
+			});
 	  });
 	  
 	  //Mouse over skills update and delete function

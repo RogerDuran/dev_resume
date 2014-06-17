@@ -77,6 +77,8 @@
 		  
 		  }//End of validation
 		  
+		  clearFields($(this));	//Clear fields -- Main.js function
+		  
 	  });
 	  
 	  $("#btnNext").click(function() {
@@ -96,7 +98,8 @@
 			  data: data,
 			  cache: false,
 			  success:  function(data){
-				  window.location = "http://dev.resume.kristenclosson.com/build/education.php";
+				  // getServername() function from main.js
+				  window.location = getServername() + "/build/education.php";
 			  }
 		  });
 	  });
