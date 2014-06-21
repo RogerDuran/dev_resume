@@ -1,6 +1,4 @@
   $(document).ready(function() {
-	  var id = 0;	
-		  
 	  //Date Picker
 	  $("#chkCurrent").click(function() {
 		  if($("#chkCurrent").is(':checked'))  { 	
@@ -16,7 +14,7 @@
 		  defaultDate: "+1w",
 		  changeMonth: true,
 		  changeYear: true,
-		  numberOfMonths: 3,
+		  numberOfMonths: 1,
 		  onClose: function( selectedDate ) {
 			  $( "#to" ).datepicker( "option", "minDate", selectedDate );
 		  }
@@ -26,7 +24,7 @@
 		  defaultDate: "+1w",
 		  changeMonth: true,
 		  changeYear: true,
-		  numberOfMonths: 3,
+		  numberOfMonths: 1,
 		  onClose: function( selectedDate ) {
 			  $( "#from" ).datepicker( "option", "maxDate", selectedDate );
 		  }
@@ -36,7 +34,7 @@
 		  var employer = $("#txtEmployer").val();
 		  var jobtitle = $("#txtJobTitle").val();
 		  var jobdesc = $("#txtJobDesc").val();
-		  var myid = id++;
+		  var myid = Math.floor( Math.random()*99999 );
 		  
 		  //Validate Form first
 		  $("#frmExperience").validate({
@@ -83,6 +81,8 @@
 	  
 	  $("#btnNext").click(function() {
 		  $('#preview h2').remove();
+		  var experienceData =  $("#preview").html();
+		  
 		  var experience = [];
 		  
 		  $("#preview ul.sortable-item ul").each(function() {
@@ -91,7 +91,7 @@
           });
 		  
 		  var content = experience.replace(/<img[^>]*>/gi,"");
-		  var data = "experience="+content+"&hdnflag2=true";
+		  var data = "experience="+content+"&hdnflag2=true&experienceData="+experienceData;
 		  $.ajax({
 			  type: "POST",
 			  url: "experience.php",
@@ -137,7 +137,7 @@
 				  defaultDate: "+1w",
 				  changeMonth: true,
 				  changeYear: true,
-				  numberOfMonths: 3,
+				  numberOfMonths: 1,
 				  onClose: function( selectedDate ) {
 					  $( "#toEdit" ).datepicker( "option", "minDate", selectedDate );
 				  }
@@ -147,7 +147,7 @@
 				  defaultDate: "+1w",
 				  changeMonth: true,
 				  changeYear: true,
-				  numberOfMonths: 3,
+				  numberOfMonths: 1,
 				  onClose: function( selectedDate ) {
 					  $( "#fromEdit" ).datepicker( "option", "maxDate", selectedDate );
 				  }

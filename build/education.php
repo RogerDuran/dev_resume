@@ -16,6 +16,8 @@
 	}
 	
 	if(isset($_POST['education'])){
+		//Session experience Data for back button
+		$_SESSION['educationData'] = $_POST['educationData'];
 		
 		//Data for skills
 		$_SESSION['education'] = $_POST['education'];	
@@ -258,13 +260,16 @@
                             </select>
                             
                             <label for="txtEditStudyField">Field of Study: </label><input type="text" name="txtEditStudyField" id="txtEditStudyField">
-
-                            <label for="fromEdit">Start Date</label>
-                            <input type="text" id="fromEdit" name="fromEdit">
-                            <label for="toEdit">End Date</label>
-                            <input type="text" id="toEdit" name="toEdit"> 
+                            <br>
+                            <button id="btnEditAddDate" class="myButton">Add Date</button>
+							<p id="hdnEditContent" style="width:400px">
+                                <label for="fromEdit">Start Date</label>
+                                <input type="text" id="fromEdit" name="fromEdit">
+                                <label for="toEdit">End Date</label>
+                                <input type="text" id="toEdit" name="toEdit"> 
+                            </p>
                         
-                            
+                            <br>
                             <input type="checkbox" id="chkEditCurrent"><label for="chkEditCurrent" style="display: inline; padding: 10px;">I currently attend here</label>
                             
                             <br>
@@ -274,13 +279,19 @@
                 </div>
             </div>  
             
-       		<!-- Preview -->
-        	<div id="preview">
-            	<h2> Education </h2>
-                <ul class="sortable-item">
+       		<!-- Preview -->            
+            <?php if(isset($_SESSION['educationData'])){ ?>
+        		<div id="preview">
+                	<h2> Education </h2><?php echo $_SESSION['educationData']?>
+                </div>
+			<?php }else{ ?>
+				<div id="preview">
+                	<h2> Education </h2>
+                    <ul class="sortable-item">
                 
-                </ul>
-            </div>
+                	</ul>
+                </div>
+			<?php } ?>
             <!-- End of Preview -->
         
          </div>

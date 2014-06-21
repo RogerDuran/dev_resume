@@ -23,6 +23,9 @@
 	}
 	
 	if(isset($_POST['skills'])){
+		//Session Skill Data for back button
+		$_SESSION['skillData'] = $_POST['skillData'];
+		
 		//Data for skills
 		$_SESSION['skills'] = $_POST['skills'];	
 		echo $_POST['skills'];
@@ -210,9 +213,15 @@
             </div>  
             
        		<!-- Preview -->
-        	<div id="preview">
-            	<h2> Skills </h2>
-            </div>
+            <?php if(isset($_SESSION['skillData'])){ ?>
+        		<div id="preview">
+                	<h2> Skills </h2><?php echo $_SESSION['skillData']?>
+                </div>
+			<?php }else{ ?>
+				<div id="preview">
+                	<h2> Skills </h2>
+                </div>
+			<?php } ?>
             <!-- End of Preview -->
         
          </div>

@@ -1,9 +1,8 @@
 $(document).ready(function() {
-  var id = 0;
   $("#btnAdd").click(function(){
 	  var skilltitle = $("#txtSkillTitle").val();
 	  var skilldesc = $("#txtSkillDesc").val();
-	  var myid = id++;
+	  var myid = Math.floor( Math.random()*99999 );
 	  
 	  
 	  //Validate Form first
@@ -31,11 +30,12 @@ $(document).ready(function() {
   
   $("#btnNext").click(function() {
 	  $('#preview h2').remove();
+	  var skillData =  $("#preview").html();
 	  var skills = $("#preview").html();
 	  var content = skills.replace(/<img[^>]*>/gi,"");
 
 	  //alert( content );
-	  var data = "skills="+content+"&hdnflag2=true";
+	  var data = "skills="+content+"&hdnflag2=true&skillData="+skillData;
 	  $.ajax({
 		  type: "POST",
 		  url: "skills.php",

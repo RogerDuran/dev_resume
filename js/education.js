@@ -1,15 +1,44 @@
   $(document).ready(function() {
-	  var id = 0;	
+	  //Date variable
+	  var dateFromString="";
+	  var dateToString="";
 	  
 	  var hdnContent = ("#hdnContent");
 	  $(hdnContent).hide();
+	  
+	  //Edit popup
+	  var hdnEditContent = ("#hdnEditContent");
+	  $(hdnEditContent).hide();
+	  
+	  var toggleEditFlag = 0;
+	  
+	  $( "#btnEditAddDate" ).click(function() {
+		$( "#hdnEditContent" ).slideToggle( "slow" );
+		$("#fromEdit").val("");
+		$("#toEdit").val("");
+		if(toggleEditFlag==0){
+			toggleEditFlag = 1;
+		}
+		else{
+			toggleEditFlag = 0;
+		}
+	  });
+	  
+	  //<------End of Popup date toggle
+	  
 	  
 	  var toggleFlag = 0;
 	  
 	  $( "#btnAddDate" ).click(function() {
 		$( "#hdnContent" ).slideToggle( "slow" );
-		toggleFlag = 1;
-		
+		$("#from").val("");
+		$("#to").val("");
+		if(toggleFlag==0){
+			toggleFlag = 1;
+		}
+		else{
+			toggleFlag = 0;
+		}
 	  });
 		  
 	  //Date Picker
@@ -27,7 +56,7 @@
 		  defaultDate: "+1w",
 		  changeMonth: true,
 		  changeYear: true,
-		  numberOfMonths: 3,
+		  numberOfMonths: 1,
 		  onClose: function( selectedDate ) {
 			  $( "#to" ).datepicker( "option", "minDate", selectedDate );
 		  }
@@ -37,7 +66,7 @@
 		  defaultDate: "+1w",
 		  changeMonth: true,
 		  changeYear: true,
-		  numberOfMonths: 3,
+		  numberOfMonths: 1,
 		  onClose: function( selectedDate ) {
 			  $( "#from" ).datepicker( "option", "maxDate", selectedDate );
 		  }
@@ -50,7 +79,7 @@
 		  var fieldStudy = $("#txtStudyField").val();
 		  
 		  //Auto generate element ID
-		  var myid = id++;
+		  var myid = Math.floor( Math.random()*99999 );
 		  
 		  //Validate Form first	  
 		  $("#frmEducation").validate({
@@ -78,6 +107,10 @@
 		  
 		  if($("#frmEducation").valid()){
 			  //Get Date
+			  
+			  //dateFromString = $( "#from" ).val();
+			  //dateToString = $( "#to" ).val();
+			  
 			  var obj1 = new Date($( "#from" ).val());
 			  var obj2 = new Date($( "#to" ).val());
 			  
@@ -93,7 +126,7 @@
 			  	$("#preview ul.sortable-item").append("<li>  <ul class='sort-child' id="+myid+"><li>"+schoolName+"<img class='delete_btn' src='../images/red_cross_mark.png'/><a data-toggle='modal' href='#modal-edit' ><img class='edit_btn' src='../images/edit.png'/></a></li><li><h4>"+dateFrom +" - " + dateTo +"</h4> </li><li>"+schoolLocation+"</li> <li>"+degree+"</li><li>"+fieldStudy+"</li> </ul>  </li>")
 			  }
 			  else{					//without education date
-			  	$("#preview ul.sortable-item").append("<li>  <ul class='sort-child' id="+myid+"><li>"+schoolName+"<img class='delete_btn' src='../images/red_cross_mark.png'/><a data-toggle='modal' href='#modal-edit' ><img class='edit_btn' src='../images/edit.png'/></a></li><li>"+schoolLocation+"</li> <li>"+degree+"</li><li>"+fieldStudy+"</li> </ul>  </li>")	  
+			  	$("#preview ul.sortable-item").append("<li>  <ul class='sort-child' id="+myid+"><li>"+schoolName+"<img class='delete_btn' src='../images/red_cross_mark.png'/><a data-toggle='modal' href='#modal-edit' ><img class='edit_btn' src='../images/edit.png'/></a></li><li style='display:none;'><h4 style='display:none;'>"+dateFrom +" - " + dateTo +"</h4> </li><li>"+schoolLocation+"</li> <li>"+degree+"</li><li>"+fieldStudy+"</li> </ul>  </li>")	  
 			  }
 		  
 		  }//End of validation
@@ -115,6 +148,7 @@
 	  
 	  $("#btnNext").click(function() {
 			$('#preview h2').remove();
+			var educationData = $("#preview").html(); 
 			var education = [];
 			
 			$("#preview ul.sortable-item ul").each(function() {
@@ -124,8 +158,8 @@
 			
 			if(education != "")
 				var content = education.replace(/<img[^>]*>/gi,"");
-			
-			var data = "education="+content+"&hdnflag2=true";
+				
+			var data = "education="+content+"&hdnflag2=true&educationData="+educationData;
 			$.ajax({
 				type: "POST",
 				url: "education.php",
@@ -171,7 +205,7 @@
 				  defaultDate: "+1w",
 				  changeMonth: true,
 				  changeYear: true,
-				  numberOfMonths: 3,
+				  numberOfMonths: 1,
 				  onClose: function( selectedDate ) {
 					  $( "#toEdit" ).datepicker( "option", "minDate", selectedDate );
 				  }
@@ -181,7 +215,7 @@
 				  defaultDate: "+1w",
 				  changeMonth: true,
 				  changeYear: true,
-				  numberOfMonths: 3,
+				  numberOfMonths: 1,
 				  onClose: function( selectedDate ) {
 					  $( "#fromEdit" ).datepicker( "option", "maxDate", selectedDate );
 				  }
@@ -201,10 +235,21 @@
 			  $("#txtEditDegree option:contains("+degree+")").attr('selected', true);
 			  $("#txtEditStudyField").val(studyField);
 			  
+			  /*
+			  //Populate Date
+			  $( "#fromEdit" ).val(dateFromString);
+			  if($( "#toEdit" ).val() == ""){
+				$("#chkEditCurrent").attr('checked','checked');
+				$("#toEdit").attr("disabled", true);
+			  }
+			  else{
+				  $("#toEdit").attr("disabled", false);
+				  $("#toEdit").val(dateToString);
+			  }
+			  */
+			  
 			  $("#btnUpdate").click(function() {
-				  
 				  //Validate Form first
-				  
 				  $("#frmEditEducation").validate({
 					rules:{
 						txtEditSchoolName:{
@@ -241,13 +286,27 @@
 						  var dateTo = obj2.toString("MMMM yyyy");
 					  }
 					  
-					  var title = $("#txtEditSchoolName").val() + "<img class='delete_btn' src='../images/red_cross_mark.png'/><a data-toggle='modal' href='#modal-edit' ><img class='edit_btn' src='../images/edit.png'/></a></li>";
 					  
-					  $("ul"+del+" li:nth-child(1)").html(title);
-					  $("ul"+del+" li:nth-child(2)").html("<h4>"+dateFrom+" - "+dateTo+"</h4>");	//
-					  $("ul"+del+" li:nth-child(3)").text($("#txtEditSchoolLocation").val());	//
-					  $("ul"+del+" li:nth-child(4)").text($("#txtEditDegree ").val());	//
-					  $("ul"+del+" li:nth-child(5)").text($("#txtEditStudyField").val());
+					  if(toggleEditFlag==1){
+						  var title = $("#txtEditSchoolName").val() + "<img class='delete_btn' src='../images/red_cross_mark.png'/><a data-toggle='modal' href='#modal-edit' ><img class='edit_btn' src='../images/edit.png'/></a></li>";
+						  
+						  $("ul"+del+" li:nth-child(1)").html(title);
+						  $("ul"+del+" li:nth-child(2)").css("display","");
+						  $("ul"+del+" li:nth-child(2)").html("<h4>"+dateFrom+" - "+dateTo+"</h4>");	//
+						  $("ul"+del+" li:nth-child(3)").text($("#txtEditSchoolLocation").val());	//
+						  $("ul"+del+" li:nth-child(4)").text($("#txtEditDegree ").val());	//
+						  $("ul"+del+" li:nth-child(5)").text($("#txtEditStudyField").val());
+					  }
+					  else{
+						  var title = $("#txtEditSchoolName").val() + "<img class='delete_btn' src='../images/red_cross_mark.png'/><a data-toggle='modal' href='#modal-edit' ><img class='edit_btn' src='../images/edit.png'/></a></li>";
+						  
+						  $("ul"+del+" li:nth-child(1)").html(title);
+						  $("ul"+del+" li:nth-child(2)").css("display","none");
+						  $("ul"+del+" li:nth-child(2)").html("<h4 style='display:none'>"+dateFrom+" - "+dateTo+"</h4>");	//
+						  $("ul"+del+" li:nth-child(3)").text($("#txtEditSchoolLocation").val());	//
+						  $("ul"+del+" li:nth-child(4)").text($("#txtEditDegree ").val());	//
+						  $("ul"+del+" li:nth-child(5)").text($("#txtEditStudyField").val()); 
+					  }
 					  
 					  del = null;
 					  
