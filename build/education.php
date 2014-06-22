@@ -220,7 +220,7 @@
 
             <input type="hidden" name="hdnFlag1" id="hdnFlag1" value="True">
             <input type="hidden" name="hdnFlag2" id="hdnFlag2" value="True"> <br>
-            <input type="submit" class="myButton" id="btnNext" value="NEXT">
+            
         </form>
         
         	<!-- Modal Edit Popup  -->
@@ -281,7 +281,7 @@
             
        		<!-- Preview -->            
             <?php if(isset($_SESSION['educationData'])){ ?>
-        		<div id="preview">
+        		<div id="preview" class="previewWindow">
                 	<h2> Education </h2><?php echo $_SESSION['educationData']?>
                 </div>
 			<?php }else{ ?>
@@ -293,14 +293,18 @@
                 </div>
 			<?php } ?>
             <!-- End of Preview -->
-        
+             <div class="prevNextButton">
+                <button id="btnPrevious">GO BACK</button>
+                <button id="btnNext">SAVE & NEXT</button>
+             </div>
          </div>
+     
          <!-- End row fluid -->
-         
          <p>&nbsp;</p>
         
         </section>
         <!-- /Career -->
+
         
         <!-- Call Footer -->
         <?php include_once("../php_includes/footer.php"); ?>

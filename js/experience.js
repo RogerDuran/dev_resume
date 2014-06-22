@@ -104,6 +104,10 @@
 		  });
 	  });
 	  
+	  $("#btnPrevious").click(function() {
+        	window.location = getServername() + "/build/skills.php";
+      });
+	  
 	  //Mouse over skills update and delete function
 	  
 	  $(document).on('mouseover','#preview ul.sort-child',function(){

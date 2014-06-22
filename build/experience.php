@@ -206,7 +206,6 @@
 
             <input type="hidden" name="hdnFlag1" id="hdnFlag1" value="True">
             <input type="hidden" name="hdnFlag2" id="hdnFlag2" value="True"> <br>
-            <input type="submit" class="myButton" id="btnNext" value="NEXT">
         </form>
         
         	<!-- Modal Edit Popup  -->
@@ -246,7 +245,10 @@
                 </div>
 			<?php } ?>
             <!-- End of Preview -->
-        
+             <div class="prevNextButton">
+                <button id="btnPrevious">GO BACK</button>
+                <button id="btnNext">SAVE & NEXT</button>
+             </div>
          </div>
          <!-- End row fluid -->
          

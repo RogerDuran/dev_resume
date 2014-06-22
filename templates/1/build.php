@@ -31,6 +31,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
+	<script src="../../js/vendor/jquery-1.9.1.min.js"></script>
+	<script>
+		/*$(document).ready(function() {
+            alert($("html").html());
+        });
+		*/
+	</script>
 
 	<title><?php echo $firstname." ".$lastname ?> | Web Designer, Director | <?php echo $email ?></title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
