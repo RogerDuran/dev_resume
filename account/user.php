@@ -2,6 +2,25 @@
 
 	include_once("../php_includes/check_login_status.php");
 	
+	
+	/* GET RESUME */
+	if(isset($_POST["resumeFlag"])){
+		
+	  $rows = array();	
+		
+	  $userid =  $_SESSION['userid'];
+	  $sql = "SELECT * FROM document WHERE userid = $userid ";
+	  $result = mysqli_query($db_conx, $sql);
+	  
+	  while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+		  $rows[] = $row["resume_name"];
+	  }
+	  echo json_encode($rows);
+	  
+	  exit();
+
+	}
+	
 	// Initialize any variables that the page might echo
 	$u = "";
 	$sex = "Male";
@@ -45,6 +64,9 @@
 			$sex = "Female";
 		}
 	}
+	
+
+
 ?>
 
 <!DOCTYPE html>
@@ -99,12 +121,37 @@
       <!-- / .title -->       
     
       <!-- Career -->
-      <section id="career" class="container">
+      <section id="profile" class="container">
     
          <!-- Start row fluid -->
          <div class="row-fluid"> 
-   
-  			<img src="../images/resume_placeholder.PNG"/>     
+            <h3>Resume</h3>
+         	<div id="resumePreview">    
+                <select id="optResume">
+                </select> 
+                
+                <div id="resumePreviewWindow">
+                
+                </div>
+            </div>
+            <div id="resumeButton">
+            	<h4>FULL Access - Upgrade for instant access to these features </h4>
+                <button class="myButton">Download</button>
+                <button class="myButton">Print</button>
+                <button class="myButton">Email</button>
+                <br>
+                
+                <h4>FREE Access</h4>
+                <button class="myButton">Preview</button>
+                <button class="myButton">Edit</button>
+                <button class="myButton">Create New Resume</button>
+                <button class="myButton">Create Cover Letter</button>
+                <br>
+                <button class="myButton">Duplicate</button>
+                <button class="myButton">Delete</button>
+                <button class="myButton">Rename Resume</button>
+                <button class="myButton">Share</button>
+            </div>
 
          </div>
          <!-- End row fluid -->
@@ -144,6 +191,38 @@
     <script src="../js/main.js"></script>
     <script src="../js/jquery.validate.min.js"></script>
     <script src="../js/jquery-ui-1.10.4.min.js"></script>
+    <script>
+		$(document).ready(function() {
+            initialize();
+        });
+		
+		function initialize(){
+			getResumes();
+		}
+		
+		function getResumes(){
+		  var data = "resumeFlag=true";
+		  $.ajax({
+			  type: "POST",
+			  url: "user.php",
+			  data: data,
+			  cache: false,
+			  success:  function(data){
+				//Populate select tag
+				var response=JSON.parse(data);
+
+				var select= '<select>';
+				var option = '';
+				$.each(response, function(index, value) {
+					option += '<option>' + value + '</option>';
+				});
+				select = select+option+'</select>';
+				$('#optResume').html(select);
+
+			  }
+		  });
+		}
+	</script>
 
 
     </body>
