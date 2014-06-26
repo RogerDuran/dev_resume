@@ -1,3 +1,26 @@
+<?php
+	session_start();
+	
+	if(isset($_GET["tc"])){
+		$template_code = $_GET["tc"];
+		
+		$data = "";
+		switch ($template_code) {
+			case "TMP01":
+				$data = "/templates/1/build.php";
+				break;
+			case "TMP02":
+				$data = "/templates/2/build.php";
+				break;
+			case "TMP03":
+				$data = "/templates/3/build.php";
+				break;
+		}
+		
+		$_SESSION["template_url"]=$data;
+	}
+?>
+
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->

@@ -1,5 +1,5 @@
 <?php
-	session_start();
+	include_once("../php_includes/check_login_status.php");
 	
 	if(isset($_POST['hdnFlag1'])){
 		//Data for Headers
@@ -21,7 +21,23 @@
 		
 		//Data for skills
 		$_SESSION['education'] = $_POST['education'];	
-		echo $_POST['education'];
+		
+		
+		//SAVE THE RESUME DATA ON THE DATABASE
+		
+		//GET THE No. of resume of the user
+		$userid = $_SESSION["userid"];
+		$sql = "SELECT doc_id from document where userid= $userid";
+		$query = mysqli_query($db_conx, $sql); 
+		
+		$numrows = mysqli_num_rows($query);
+		$numrows += 1;
+		$name=$_SESSION['firstname']." ".$_SESSION['lastname']." Resume ".$numrows;
+		$sql = "INSERT INTO document(resume_name,body,userid,date_created,date_modified) values ($name,null,$userid,now(),now())";
+		$query = mysqli_query($db_conx, $sql); 
+		
+		echo $query;
+		
 		exit();
 	}
 ?>
@@ -217,7 +233,7 @@
             
 			<br>
             <input type="button" class="myButton" id="btnAdd" value="Add School">
-
+            <input type="hidden" name="hdnTemplateLocation" id="hdnTemplateLocation" value="<?php echo $_SESSION["template_url"]; ?>"
             <input type="hidden" name="hdnFlag1" id="hdnFlag1" value="True">
             <input type="hidden" name="hdnFlag2" id="hdnFlag2" value="True"> <br>
             

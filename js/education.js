@@ -160,6 +160,7 @@
 				var content = education.replace(/<img[^>]*>/gi,"");
 				
 			var data = "education="+content+"&hdnflag2=true&educationData="+educationData;
+			var location = $("#hdnTemplateLocation").val();
 			$.ajax({
 				type: "POST",
 				url: "education.php",
@@ -167,7 +168,8 @@
 				cache: false,
 				success:  function(data){
 					// getServername() function from main.js
-					window.location = getServername() + "/templates/1/build.php";
+					alert(data);
+					window.location = getServername() + location;
 				}
 			});
 	  });
