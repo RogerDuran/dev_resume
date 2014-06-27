@@ -1,7 +1,7 @@
 <?php
 	session_start();
 	
-	if(isset($_GET["tc"])){
+	if(isset($_GET["tc"]) && isset($_GET["docid"]) ){
 		$template_code = $_GET["tc"];
 		
 		$data = "";
@@ -18,6 +18,7 @@
 		}
 		
 		$_SESSION["template_url"]=$data;
+		$_SESSION["doc_id"] = $_GET["docid"];
 	}
 ?>
 

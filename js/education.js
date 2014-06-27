@@ -168,7 +168,6 @@
 				cache: false,
 				success:  function(data){
 					// getServername() function from main.js
-					alert(data);
 					window.location = getServername() + location;
 				}
 			});

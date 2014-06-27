@@ -15,7 +15,7 @@
 
 	}
 	
-	if(isset($_POST['education'])){
+	if(isset($_POST['education']) && isset($_SESSION['doc_id'])){
 		//Session experience Data for back button
 		$_SESSION['educationData'] = $_POST['educationData'];
 		
@@ -33,10 +33,10 @@
 		$numrows = mysqli_num_rows($query);
 		$numrows += 1;
 		$name=$_SESSION['firstname']." ".$_SESSION['lastname']." Resume ".$numrows;
-		$sql = "INSERT INTO document(resume_name,body,userid,date_created,date_modified) values ($name,null,$userid,now(),now())";
-		$query = mysqli_query($db_conx, $sql); 
+		$docid = $_SESSION['doc_id'];
+		$sql = "INSERT INTO document(doc_id,resume_name,body,userid,date_created,date_modified) values ($docid,'$name',null,$userid,now(),now())";
 		
-		echo $query;
+		$query = mysqli_query($db_conx, $sql); 
 		
 		exit();
 	}

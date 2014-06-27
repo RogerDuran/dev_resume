@@ -1,5 +1,6 @@
 <?php
-	session_start();
+	include_once("../../php_includes/check_login_status.php");
+	
 	if(isset($_SESSION['skills']) &&  isset($_SESSION['experience']) && isset($_SESSION['education']) ){
 		
 		//Data for Headers
@@ -24,6 +25,12 @@
 		
 		//Data for Education
 		$education = $_SESSION['education'];
+		
+		$docid = $_SESSION["doc_id"];
+		
+		//UPDATE DATABASE
+		$sql = "UPDATE document SET body = '' where doc_id = $docid";
+		$query = mysqli_query($db_conx, $sql); 
 	}
 
 ?>

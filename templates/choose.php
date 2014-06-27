@@ -1,7 +1,26 @@
 <?php
-	include_once("../php_includes/db_conx.php");
+	include_once("../php_includes/check_login_status.php");
+	
 	$sql = "SELECT * FROM templates";
 	$result = mysqli_query($db_conx, $sql);
+	
+	if(isset($_POST["docidFlag"])){
+		
+		$sql = "SELECT doc_id from document order by doc_id desc limit 1";
+		$result = mysqli_query($db_conx, $sql); 
+		$numrows = mysqli_num_rows($result);
+		
+		if($numrows>0){
+			$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+			$id = $row["doc_id"];
+			$id++;
+		}else{
+			$id = 1;
+		}
+		
+		echo $id;
+		exit();
+	}
 
 ?>
 
@@ -187,8 +206,20 @@
 			 $("#btnNext").click(function() {
 				if(template_code==""){
 					alert("Please select a template");
+				}else{
+					var data = "docidFlag=true";
+					$.ajax({
+						type: "POST",
+						url: "choose.php",
+						data: data,
+						cache: false,
+						success:  function(data){
+							var doc_id = data;
+						   window.location = getServername() + "/build/create.php?tc="+template_code+"&docid="+doc_id;
+						}
+					});
+					
 				}
-				window.location = getServername() + "/build/create.php?tc="+template_code
              });
 		});
 	</script>
