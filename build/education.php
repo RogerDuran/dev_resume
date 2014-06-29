@@ -34,7 +34,8 @@
 		$numrows += 1;
 		$name=$_SESSION['firstname']." ".$_SESSION['lastname']." Resume ".$numrows;
 		$docid = $_SESSION['doc_id'];
-		$sql = "INSERT INTO document(doc_id,resume_name,body,userid,date_created,date_modified) values ($docid,'$name',null,$userid,now(),now())";
+		$resume_style= '<link rel="stylesheet" type="text/css" href="../templates/1/css/style.css" media="all" />';
+		$sql = "INSERT INTO document(doc_id,resume_name,body,resume_style,userid,date_created,date_modified) values ($docid,'$name',null,'$resume_style',$userid,now(),now())";
 		
 		$query = mysqli_query($db_conx, $sql); 
 		

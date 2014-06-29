@@ -1,14 +1,11 @@
 <?php
-
 	include_once("../php_includes/check_login_status.php");
-	
+	$userid =  $_SESSION['userid'];
 	
 	/* GET RESUME */
 	if(isset($_POST["resumeFlag"])){
-		
 	  $rows = array();	
-		
-	  $userid =  $_SESSION['userid'];
+
 	  $sql = "SELECT * FROM document WHERE userid = $userid ";
 	  $result = mysqli_query($db_conx, $sql);
 	  
@@ -19,6 +16,18 @@
 	  
 	  exit();
 
+	}
+	
+	if(isset($_POST["selectedData"])){
+		$resume_name = $_POST["selectedData"];
+		$sql = "SELECT * FROM document WHERE resume_name ='$resume_name' and userid = $userid ";
+		$result = mysqli_query($db_conx, $sql);
+		$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+		
+		$doc_id = $row["doc_id"];
+		echo $doc_id;
+		
+		exit();
 	}
 	
 	// Initialize any variables that the page might echo
@@ -142,7 +151,7 @@
                 <br>
                 
                 <h4>FREE Access</h4>
-                <button class="myButton">Preview</button>
+                <button id="preview" class="myButton">Preview</button>
                 <button class="myButton">Edit</button>
                 <button class="myButton">Create New Resume</button>
                 <button class="myButton">Create Cover Letter</button>
@@ -194,6 +203,23 @@
     <script>
 		$(document).ready(function() {
             initialize();
+			
+			$("#preview").click(function() {
+			  var selectedItem = $( "#optResume option:selected" ).text();
+			  var data = "selectedData="+selectedItem;
+			  $.ajax({
+				  type: "POST",
+				  url: "user.php",
+				  data: data,
+				  cache: false,
+				  success:  function(data){
+					  // getServername() function from main.js
+					  window.location = getServername() + "/templates/view.php?docid="+data;
+				  }
+			  });
+			 
+                
+            });
         });
 		
 		function initialize(){

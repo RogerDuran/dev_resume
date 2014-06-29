@@ -28,9 +28,18 @@
 		
 		$docid = $_SESSION["doc_id"];
 		
-		//UPDATE DATABASE
-		$sql = "UPDATE document SET body = '' where doc_id = $docid";
-		$query = mysqli_query($db_conx, $sql); 
+		$log_username = $_SESSION['username'];
+		
+		if(isset($_POST["resumeBody"])){
+			
+			$body = $_POST["resumeBody"];
+	
+			//UPDATE DATABASE
+			$sql = "UPDATE document SET body = '$body' where doc_id = $docid";
+			$query = mysqli_query($db_conx, $sql); 
+			
+			echo $log_username;
+		}
 	}
 
 ?>
@@ -40,10 +49,27 @@
 <head>
 	<script src="../../js/vendor/jquery-1.9.1.min.js"></script>
 	<script>
-		/*$(document).ready(function() {
-            alert($("html").html());
+		$(document).ready(function() {
+            sendHTML();
+			
+			function sendHTML(){
+		     
+			 $("#resumeStyle").remove();
+			  var data = "resumeBody="+ $("body").html();
+			  
+			  $.ajax({
+				  type: "POST",
+				  url: "build.php",
+				  data: data,
+				  cache: false,
+				  success:  function(data){
+					  window.location = getServername() + "/account/user.php?u="+data;
+				  }
+			  });
+			  
+			}
         });
-		*/
+		
 	</script>
 
 	<title><?php echo $firstname." ".$lastname ?> | Web Designer, Director | <?php echo $email ?></title>
@@ -53,7 +79,7 @@
 	<meta name="description" content="" />
 
 	<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" media="all" /> 
-	<link rel="stylesheet" type="text/css" href="css/1.css" media="all" />
+	<link id="resumeStyle" rel="stylesheet" type="text/css" href="css/style.css" media="all" />
 
 </head>
 <body>
