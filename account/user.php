@@ -153,7 +153,7 @@
                 <h4>FREE Access</h4>
                 <button id="preview" class="myButton">Preview</button>
                 <button class="myButton">Edit</button>
-                <button class="myButton">Create New Resume</button>
+                <button id="create" class="myButton">Create New Resume</button>
                 <button class="myButton">Create Cover Letter</button>
                 <br>
                 <button class="myButton">Duplicate</button>
@@ -204,22 +204,26 @@
 		$(document).ready(function() {
             initialize();
 			
-			$("#preview").click(function() {
-			  var selectedItem = $( "#optResume option:selected" ).text();
-			  var data = "selectedData="+selectedItem;
-			  $.ajax({
-				  type: "POST",
-				  url: "user.php",
-				  data: data,
-				  cache: false,
-				  success:  function(data){
-					  // getServername() function from main.js
-					  window.location = getServername() + "/templates/view.php?docid="+data;
-				  }
-			  });
-			 
-                
+				//When preview button was clicked
+				$("#preview").click(function() {
+				  var selectedItem = $( "#optResume option:selected" ).text();
+				  var data = "selectedData="+selectedItem;
+				  $.ajax({
+					  type: "POST",
+					  url: "user.php",
+					  data: data,
+					  cache: false,
+					  success:  function(data){
+						  // getServername() function from main.js
+						  window.location = getServername() + "/templates/view.php?docid="+data;
+					  }
+				  }); 
             });
+			
+			//When Create resume button was clicked
+			$("#create").click(function() {
+				window.location = getServername() + "/templates/choose.php";
+			});
         });
 		
 		function initialize(){

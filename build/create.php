@@ -3,20 +3,23 @@
 	
 	if(isset($_GET["tc"]) && isset($_GET["docid"]) ){
 		$template_code = $_GET["tc"];
-		
+		$path = "";
 		$data = "";
 		switch ($template_code) {
 			case "TMP01":
+				$path = "../templates/1/";
 				$data = "/templates/1/build.php";
 				break;
 			case "TMP02":
+			    $path = "../templates/2/";
 				$data = "/templates/2/build.php";
 				break;
 			case "TMP03":
+			    $path = "../templates/3/";
 				$data = "/templates/3/build.php";
 				break;
 		}
-		
+		$_SESSION["template_path"] = $path;
 		$_SESSION["template_url"]=$data;
 		$_SESSION["doc_id"] = $_GET["docid"];
 	}

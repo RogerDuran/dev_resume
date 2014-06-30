@@ -18,7 +18,7 @@
 	<meta name="description" content="" />
 
 	<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" media="all" /> 
-    <?php echo $row["resume_style"]; ?>
+    <link rel="stylesheet" type="text/css" href="<?php echo $row["resume_style"]; ?>" media="all" />
 </head>
 	<?php echo $row["body"]; ?>
 </html>

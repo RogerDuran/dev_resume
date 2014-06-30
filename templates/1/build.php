@@ -39,6 +39,7 @@
 			$query = mysqli_query($db_conx, $sql); 
 			
 			echo $log_username;
+			exit();
 		}
 	}
 
@@ -48,13 +49,12 @@
 <html>
 <head>
 	<script src="../../js/vendor/jquery-1.9.1.min.js"></script>
+    <script src="../../js/main.js"></script>
 	<script>
 		$(document).ready(function() {
             sendHTML();
 			
 			function sendHTML(){
-		     
-			 $("#resumeStyle").remove();
 			  var data = "resumeBody="+ $("body").html();
 			  
 			  $.ajax({
