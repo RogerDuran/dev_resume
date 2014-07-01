@@ -30,6 +30,52 @@
 		exit();
 	}
 	
+	if(isset($_POST["selectedDataDel"])){
+		$resume_name = $_POST["selectedDataDel"];
+		
+		$sql = "DELETE FROM document WHERE resume_name ='$resume_name' and userid = $userid ";
+		$result = mysqli_query($db_conx, $sql);
+
+		exit();
+	}
+	
+	if(isset($_POST["selectedDataRename"]) && isset($_POST["newResumeName"])){
+		$resume_name = $_POST["selectedDataRename"];
+		$newName =  $_POST["newResumeName"];
+		$isExist =false;
+
+		$sql = "SELECT * FROM document WHERE resume_name ='$newName' and userid = $userid ";
+		$result = mysqli_query($db_conx, $sql);
+		$row_cnt = mysqli_num_rows($result);
+		
+		if($row_cnt >0)
+			$isExist = true;
+		else
+			$isExist = false;
+			
+		//If exist
+		if($isExist){
+			echo "exist";
+			exit();
+		}
+		else{
+			
+			//GET document ID first
+			$sql = "SELECT * FROM document WHERE resume_name ='$resume_name' and userid = $userid ";
+		    $result = mysqli_query($db_conx, $sql);
+			$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+			$docid = $row["doc_id"];
+			
+			//Update Resume
+			
+			$sql = "UPDATE document SET resume_name ='$newName' WHERE doc_id = $docid AND userid = $userid ";
+			$result = mysqli_query($db_conx, $sql);
+			exit();
+		}
+
+		
+	}
+	
 	// Initialize any variables that the page might echo
 	$u = "";
 	$sex = "Male";
@@ -157,8 +203,8 @@
                 <button class="myButton">Create Cover Letter</button>
                 <br>
                 <button class="myButton">Duplicate</button>
-                <button class="myButton">Delete</button>
-                <button class="myButton">Rename Resume</button>
+                <button id="delete" class="myButton">Delete</button>
+                <button id="rename" class="myButton">Rename Resume</button>
                 <button class="myButton">Share</button>
             </div>
 
@@ -172,6 +218,38 @@
         
         <!-- Call Footer -->
         <?php include_once("../php_includes/footer.php"); ?>
+        
+        <!-- Delete Modal-->
+        <div class="modal hide fade in" id="deleteForm" aria-hidden="false">
+          <div class="modal-header">
+            <i class="icon-remove" data-dismiss="modal" aria-hidden="true"></i>
+            <h3>Do you really want to delete the the selected Resume?</h3>
+          </div>
+          
+           <div class="modal-body">
+           		<button id="deleteResume" class="myButton">YES</button>
+                <button id="cancelDelete" class="myButton">NO</button>
+           </div>
+           <!--/Modal Body-->
+        </div>    
+        <!--  /Delete Modal -->  
+        
+        <!-- Rename Modal-->
+        <div class="modal hide fade in" id="renameForm" aria-hidden="false">
+          <div class="modal-header">
+            <i class="icon-remove" data-dismiss="modal" aria-hidden="true"></i>
+            <h3>Rename Resume</h3>
+          </div>
+          
+           <div class="modal-body">
+           		<input id="txtResumeName" type="text">
+                <div id="resumeRenameError" style="display:none;color:red"><p>The resume name already exist</p><br></div>
+           		<button id="renameResume" class="myButton">Save</button>
+                <button id="cancelRename" class="myButton">Cancel</button>
+           </div>
+           <!--/Rename Body-->
+        </div>    
+        <!--  /Rename Modal -->   
         
         <!--  Login form -->
         <div class="modal hide fade in" id="loginForm" aria-hidden="false">
@@ -204,27 +282,89 @@
 		$(document).ready(function() {
             initialize();
 			
-				//When preview button was clicked
-				$("#preview").click(function() {
-				  var selectedItem = $( "#optResume option:selected" ).text();
-				  var data = "selectedData="+selectedItem;
-				  $.ajax({
-					  type: "POST",
-					  url: "user.php",
-					  data: data,
-					  cache: false,
-					  success:  function(data){
-						  // getServername() function from main.js
-						  window.location = getServername() + "/templates/view.php?docid="+data;
-					  }
-				  }); 
-            });
+			var selectedItem = "";
+			var data = "";
+			
+			//When preview button was clicked
+			$("#preview").click(function() {
+			  selectedItem = $( "#optResume option:selected" ).text();
+			  data = "selectedData="+selectedItem;
+			  $.ajax({
+				  type: "POST",
+				  url: "user.php",
+				  data: data,
+				  cache: false,
+				  success:  function(data){
+					  // getServername() function from main.js
+					  window.location = getServername() + "/templates/view.php?docid="+data;
+				  }
+			  }); 
+			});
 			
 			//When Create resume button was clicked
 			$("#create").click(function() {
 				window.location = getServername() + "/templates/choose.php";
 			});
-        });
+			
+			//When Delete button was clicked
+			$("#delete").click(function() {
+				$("#deleteForm").modal("show");
+
+				$("#deleteResume").click(function() {
+					selectedItem = $( "#optResume option:selected" ).text();
+				    data = "selectedDataDel="+selectedItem;
+					$.ajax({
+						type: "POST",
+						url: "user.php",
+						data: data,
+						cache: false,
+						success:  function(data){
+							$("#deleteForm").modal("hide");
+							getResumes();
+						}
+					}); 
+                });
+				
+				$("#cancelDelete").click(function() {
+                    $("#deleteForm").modal("hide");
+                });
+				
+			});
+			
+			//When Rename button was clicked
+			$("#rename").click(function() {
+				$("#resumeRenameError").css("display","none");	
+                $("#renameForm").modal("show");
+				
+				selectedItem = $( "#optResume option:selected" ).text();
+				$("#txtResumeName").val(selectedItem);
+				
+				$("#renameResume").click(function() {
+					var newResumeName = $("#txtResumeName").val();
+				    data = "selectedDataRename="+selectedItem+"&newResumeName="+newResumeName;
+					$.ajax({
+						type: "POST",
+						url: "user.php",
+						data: data,
+						cache: false,
+						success:  function(data){
+							if(data == "exist"){
+								$("#resumeRenameError").css("display","inline");	
+							}
+							else{
+								$("#renameForm").modal("hide");
+								window.location.reload();
+							}
+						}
+					}); 
+                });
+				
+				$("#cancelRename").click(function() {
+                    $("#renameForm").modal("hide");
+                });
+            });
+			
+        }); //<-------------- End of document ready
 		
 		function initialize(){
 			getResumes();
