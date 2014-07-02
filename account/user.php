@@ -76,6 +76,50 @@
 		
 	}
 	
+	if(isset($_POST["selectedDataDuplicate"]) && isset($_POST["newDuplicateResumeName"])){
+		$resume_name = $_POST["selectedDataDuplicate"];
+		$newName =  $_POST["newDuplicateResumeName"];
+		$isExist =false;
+		
+		$sql = "SELECT * FROM document WHERE resume_name ='$newName' and userid = $userid ";
+		$result = mysqli_query($db_conx, $sql);
+		$row_cnt = mysqli_num_rows($result);
+		
+		if($row_cnt >0)
+			$isExist = true;
+		else
+			$isExist = false;
+			
+		//If exist
+		if($isExist){
+			echo "exist";
+			exit();
+		}
+		else{
+			//GET document ID first
+			$sql = "SELECT * FROM document WHERE resume_name ='$resume_name' and userid = $userid ";
+		    $result = mysqli_query($db_conx, $sql);
+			$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+			
+			//Get each column
+			$docid = $row["doc_id"];
+			$body = $row["body"];
+			$resume_style = $row["resume_style"];
+			
+			
+			//Duplicate Resume
+			$sql = "INSERT INTO document(resume_name,body,resume_style,userid,date_created,date_modified) values( '$newName','$body','$resume_style',$userid,now(),now() )";
+			$result = mysqli_query($db_conx, $sql);
+			
+			//Update Resume Name after duplicate
+			//$sql = "UPDATE document SET resume_name = '$newName' WHERE  doc_id = $docid AND userid = $userid";
+			//$result = mysqli_query($db_conx, $sql);
+			
+			exit();
+		}
+		
+	}
+	
 	// Initialize any variables that the page might echo
 	$u = "";
 	$sex = "Male";
@@ -202,7 +246,7 @@
                 <button id="create" class="myButton">Create New Resume</button>
                 <button class="myButton">Create Cover Letter</button>
                 <br>
-                <button class="myButton">Duplicate</button>
+                <button id="duplicate" class="myButton">Duplicate</button>
                 <button id="delete" class="myButton">Delete</button>
                 <button id="rename" class="myButton">Rename Resume</button>
                 <button class="myButton">Share</button>
@@ -250,6 +294,23 @@
            <!--/Rename Body-->
         </div>    
         <!--  /Rename Modal -->   
+        
+        <!-- Duplicate Modal-->
+        <div class="modal hide fade in" id="duplicateForm" aria-hidden="false">
+          <div class="modal-header">
+            <i class="icon-remove" data-dismiss="modal" aria-hidden="true"></i>
+            <h3> What do you want to name your duplicate resume? </h3>
+          </div>
+          
+           <div class="modal-body">
+           		<input id="txtResumeDuplicateName" type="text">
+                <div id="resumeDuplicateError" style="display:none;color:red"><p>The resume name already exist</p><br></div>
+           		<button id="renameDuplicate" class="myButton">Save</button>
+                <button id="cancelDuplicate" class="myButton">Cancel</button>
+           </div>
+           <!--/Duplicate Body-->
+        </div>    
+        <!--  /Duplicate Modal -->   
         
         <!--  Login form -->
         <div class="modal hide fade in" id="loginForm" aria-hidden="false">
@@ -362,6 +423,44 @@
 				$("#cancelRename").click(function() {
                     $("#renameForm").modal("hide");
                 });
+            });
+			
+			//When Duplicate button was clicked
+			$("#duplicate").click(function() {
+			  $("#resumeDuplicateError").css("display","none");	
+			  selectedItem = $( "#optResume option:selected" ).text();
+			  var selectedItemDisplay = "Copy of " + $( "#optResume option:selected" ).text();
+			  
+			  $("#txtResumeDuplicateName").val(selectedItemDisplay);
+			  
+			  var newDuplicateResumeName = $("#txtResumeDuplicateName").val();
+			  data = "selectedDataDuplicate="+selectedItem+"&newDuplicateResumeName="+newDuplicateResumeName;
+			  
+			  $("#duplicateForm").modal("show");
+			  
+			  
+			  $("#renameDuplicate").click(function() {
+				  $.ajax({
+					  type: "POST",
+					  url: "user.php",
+					  data: data,
+					  cache: false,
+					  success:  function(data){
+						  if(data == "exist"){
+							  $("#resumeDuplicateError").css("display","inline");	
+						  }
+						  else{
+							  $("#duplicateForm").modal("hide");
+							  window.location.reload();
+						  }
+					  }
+				  });  
+			  });	  
+			  
+			  $("#cancelDuplicate").click(function() {
+				  $("#duplicateForm").modal("hide");
+			  });
+			  
             });
 			
         }); //<-------------- End of document ready
