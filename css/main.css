@@ -276,3 +276,41 @@
 		background-color: rgba(25, 116, 194, 1);
 		height: 300px;
 	}
+	
+/* Edit Page Style */
+
+.editPreview{
+	border: 5px solid #ccc;
+	height: 600px;
+	margin-top: 20px;
+}
+
+#edit .div-rounded{
+	border-radius:5px;
+	border: 1px solid #ccc;
+	margin-bottom: 20px;
+}
+
+	#edit .div-rounded ul{
+		list-style-type:none;
+	}
+	
+		#edit .div-rounded li{
+			text-align:center;
+			border-bottom: 1px solid #ccc;
+			padding: 5px 0px;
+			font-size: 10pt;
+			font-weight: bold;
+		}
+		#edit .div-rounded li:last-child{
+			border-bottom:none;
+		}
+	
+	#edit ul, ol {
+		padding: 0;
+		margin: 0;
+	}
+		
+	#edit .div-rounded h2,h3,h4{
+		text-align:center;
+	}
