@@ -35,10 +35,11 @@
 			$body = $_POST["resumeBody"];
 	
 			//UPDATE DATABASE
-			$sql = "UPDATE document SET body = '$body' where doc_id = $docid";
-			$query = mysqli_query($db_conx, $sql); 
+			//$sql = "UPDATE document SET body = '$body' where doc_id = $docid";
+			//$query = mysqli_query($db_conx, $sql); 
 			
-			echo $log_username;
+			//echo $log_username;
+			echo $body;
 			exit();
 		}
 	}
@@ -55,7 +56,10 @@
             sendHTML();
 			
 			function sendHTML(){
-			  var data = "resumeBody="+ $("body").html();
+			  //var data = "resumeBody="+ $("body").html();
+			  
+			  var header = $("#skills div.yui-u ul").html();
+			  var data = "resumeBody="+header;
 			  
 			  $.ajax({
 				  type: "POST",
@@ -63,7 +67,8 @@
 				  data: data,
 				  cache: false,
 				  success:  function(data){
-					  window.location = getServername() + "/account/user.php?u="+data;
+					  alert(data);
+					  //window.location = getServername() + "/account/user.php?u="+data;
 				  }
 			  });
 			  
@@ -84,77 +89,90 @@
 </head>
 <body>
 
-<div id="doc2" class="yui-t7">
+<div id="doc" class="yui-t7">
 	<div id="inner">
-	
-		<div id="hd">
-			<div class="yui-gc">
-				<div class="yui-u first">
-					<h1><?php echo $firstname.' '.$lastname ?></h1> <!-- Name -->
-					<h2><?php echo $jobTitle ?></h2> <!-- Title -->
-				</div>
-
-				<div class="yui-u">
-					<div class="contact-info">
-						<h3><a href="mailto:<?php echo $email ?>"><?php echo $email ?></a></h3> <!-- Email -->
-						<h3><?php echo $phone ?></h3> <!-- Phone Number -->
-                        <h3><?php echo $address ?> </h3>
-                        <h3><?php echo $city." ".$state ?> </h3>
-					</div><!--// .contact-info -->
-				</div>
-			</div><!--// .yui-gc -->
-		</div><!--// hd -->
+    
+   		<!-- HEADER SECTION -->
+		<section id="header">
+            <div id="hd">
+                <div class="yui-gc">
+                    <div class="yui-u first">
+                        <h1><?php echo $firstname.' '.$lastname ?></h1> <!-- Name -->
+                        <h2><?php echo $jobTitle ?></h2> <!-- Title -->
+                    </div>
+    
+                    <div class="yui-u">
+                        <div class="contact-info">
+                            <h3><a href="mailto:<?php echo $email ?>"><?php echo $email ?></a></h3> <!-- Email -->
+                            <h3><?php echo $phone ?></h3> <!-- Phone Number -->
+                            <h3><?php echo $address ?> </h3>
+                            <h3><?php echo $city." ".$state ?> </h3>
+                        </div><!--// .contact-info -->
+                    </div>
+                </div><!--// .yui-gc -->
+            </div><!--// hd -->
+        </section>
+        <!-- //HEADER SECTION -->
 
 		<div id="bd">
 			<div id="yui-main">
 				<div class="yui-b">
 
-					<div class="yui-gf">
-						<div class="yui-u first">
-							<h2>Profile</h2>
-						</div>
-						<div class="yui-u">
-							<p class="enlarge">
-								<?php echo $txtProfile; ?>
-							</p>
-						</div>
-					</div><!--// .yui-gf -->
-
-					<div class="yui-gf">
-						<div class="yui-u first">
-							<h2>Skills</h2>
-						</div>
-						<div class="yui-u">
-							<!-- Skills -->
-                            <?php echo $skills; ?>                                
-						</div>
-					</div><!--// .yui-gf -->
-
-					<div class="yui-gf">
-	
-						<div class="yui-u first">
-							<h2>Experience</h2>
-						</div><!--// .yui-u -->
-						
-                        <section id="experience">
-                            <div class="yui-u">
-                                <?php echo $experience; ?>
-                            </div><!--// .yui-u -->
-                        </section>
-					</div><!--// .yui-gf -->
-
-
-					<div class="yui-gf last">
-						<div class="yui-u first">
-							<h2>Education</h2>
-						</div>
-                        <section id="education">
-                            <div class="yui-u">
-                                <?php echo $education ?>
+					<!-- PROFILE SECTION -->
+					<section id="profile">
+                        <div class="yui-gf">
+                            <div class="yui-u first">
+                                <h2>Profile</h2>
                             </div>
-                        </section>
-					</div><!--// .yui-gf -->
+                            <div class="yui-u">
+                                <p class="enlarge">
+                                    <?php echo $txtProfile; ?>
+                                </p>
+                            </div>
+                        </div><!--// .yui-gf -->
+                    </section>
+                    <!-- //PROFILE SECTION -->
+                    
+                    <!-- SKILLS SECTION -->
+					<section id="skills">
+                        <div class="yui-gf">
+                            <div class="yui-u first">
+                                <h2>Skills</h2>
+                            </div>
+                            <div class="yui-u">
+                                <!-- Skills -->
+                                <?php echo $skills; ?>                                
+                            </div>
+                        </div><!--// .yui-gf -->
+                    </section>
+                    <!-- //SKILLS SECTION -->
+                    
+                    <!-- EXPERIENCE SECTION -->
+					<section id="experience">
+                        <div class="yui-gf">
+                            <div class="yui-u first">
+                                <h2>Experience</h2>
+                            </div><!--// .yui-u -->
+                                <div class="yui-u">
+                                    <?php echo $experience; ?>
+                                </div><!--// .yui-u -->
+                        </div><!--// .yui-gf -->
+					</section>
+                    <!-- //EXPERIENCE SECTION -->
 
+					<!-- EDUCATION SECTION -->
+					<section id="education">
+                        <div class="yui-gf last">
+                            <div class="yui-u first">
+                                <h2>Education</h2>
+                            </div>
+                            
+                                <div class="yui-u">
+                                    <?php echo $education ?>
+                                </div>
+                        </div><!--// .yui-gf -->
+					</section>
+                    <!-- //EDUCATION SECTION -->
 
 				</div><!--// .yui-b -->
 			</div><!--// yui-main -->

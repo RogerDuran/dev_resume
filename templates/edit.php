@@ -27,7 +27,7 @@
   
   <link rel="stylesheet" href="../css/ui-lightness/jquery-ui-1.10.4.min.css">
   
- <body>
+ <body class="edit-resume">
       <!-- CALL HEADER -->
       <?php include_once("../php_includes/header.php"); ?>
     
