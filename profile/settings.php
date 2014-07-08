@@ -208,7 +208,7 @@
     	<form id="frmCountry">
 			<div>Country</div>
             <select id="optCountry" name="inpCountry" >
-            	<?php include_once("../template_country_list.php"); ?>
+            	<?php include_once("../php_includes/template_country_list.php"); ?>
             </select>
         </form>
 	</div>

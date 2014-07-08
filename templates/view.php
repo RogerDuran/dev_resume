@@ -20,5 +20,44 @@
 	<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" media="all" /> 
     <link rel="stylesheet" type="text/css" href="<?php echo $row["resume_style"]; ?>" media="all" />
 </head>
-	<?php echo $row["body"]; ?>
+<body>
+    <div id="doc" class="yui-t7">
+        <div id="inner">
+        <section id="header">
+        	<?php echo $row["header"]; ?>
+        </section>
+		<div id="bd">
+			<div id="yui-main">
+				<div class="yui-b">
+                
+                	<section id="profile">
+                		<?php echo $row["profile"]; ?>
+                    </section>
+                    
+                    <section id="skills">
+                    <?php echo $row["skills"]; ?>
+                    </section>
+                    
+                    <section id="experience">
+                    <?php echo $row["experience"]; ?>
+                    </section>
+                    
+                    <section id="education">
+                    <?php echo $row["education"]; ?>
+        			</section>
+        
+				</div><!--// .yui-b -->
+			</div><!--// yui-main -->
+		</div><!--// bd -->
+
+		<div id="ft">
+			<p><?php echo $firstname." ".$lastname ?> &mdash; <a href="mailto:<?php echo $email ?>"><?php echo $email ?></a> &mdash; <?php $phone ?></p>
+		</div><!--// footer -->
+
+	</div><!-- // inner -->
+
+
+</div><!--// doc -->
+        
+</body>
 </html>

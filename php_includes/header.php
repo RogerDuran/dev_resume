@@ -18,6 +18,7 @@
           <?php 
 		  	if(!isset($_SESSION['logged'])){
           		echo '<li class="login"><a data-toggle="modal" href="#loginForm">Login</i></a></li>';
+				echo '<li class="register"><a href="../membership/signup.php">REGISTER</a></li>';
 		  	}
 			
 			if(isset($_SESSION['logged']) || isset($isOwner))

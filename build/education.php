@@ -187,6 +187,8 @@
           <div class="row-fluid">
             <div class="span6">
               <h1>Create Resume - Education</h1>
+              <img src="../images/facebook.png">
+              <img src="../images/youtube.png">
             </div>
             <div class="span6">
               <ul class="breadcrumb pull-right">

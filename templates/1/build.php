@@ -1,6 +1,8 @@
 <?php
 	include_once("../../php_includes/check_login_status.php");
 	
+	$userid = $_SESSION["userid"];
+	
 	if(isset($_SESSION['skills']) &&  isset($_SESSION['experience']) && isset($_SESSION['education']) ){
 		
 		//Data for Headers
@@ -30,16 +32,28 @@
 		
 		$log_username = $_SESSION['username'];
 		
-		if(isset($_POST["resumeBody"])){
+		if(isset($_POST["header"])
+			&& isset($_POST["profile"])	
+			&& isset($_POST["skills"])
+			&& isset($_POST["experience"])
+			&& isset($_POST["education"])
+		){
 			
-			$body = $_POST["resumeBody"];
+			$header = $_POST["header"];
+			$profile = $_POST["profile"];
+			$skills = $_POST["skills"];
+			$experience = $_POST["experience"];
+			$education = $_POST["education"];
 	
 			//UPDATE DATABASE
-			//$sql = "UPDATE document SET body = '$body' where doc_id = $docid";
-			//$query = mysqli_query($db_conx, $sql); 
+			$sql = "UPDATE document SET header = '$header',
+					 profile = '$profile',
+					 skills = '$skills',
+					 experience = '$experience',
+					 education = '$education'
+			       WHERE doc_id = $docid AND userid = $userid";
+			$query = mysqli_query($db_conx, $sql); 
 			
-			//echo $log_username;
-			echo $body;
 			exit();
 		}
 	}
@@ -58,8 +72,17 @@
 			function sendHTML(){
 			  //var data = "resumeBody="+ $("body").html();
 			  
-			  var header = $("#skills div.yui-u ul").html();
-			  var data = "resumeBody="+header;
+			  var header = $("#header").html();
+			  var profile = $("#profile").html();
+			  var skills = $("#skills").html();
+			  var experience = $("#experience").html();
+			  var education = $("#education").html();
+			  
+			  var data = "header=" + header 
+			            +"&profile=" + profile
+						+"&skills=" + skills
+						+"&experience=" + experience
+						+"&education=" + education;
 			  
 			  $.ajax({
 				  type: "POST",
@@ -67,7 +90,7 @@
 				  data: data,
 				  cache: false,
 				  success:  function(data){
-					  alert(data);
+					  alert(experience);
 					  //window.location = getServername() + "/account/user.php?u="+data;
 				  }
 			  });

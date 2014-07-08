@@ -108,8 +108,8 @@
       </section>
       <!-- / .title -->       
     
-      <!-- Career -->
-      <section id="career" class="container">
+      <!-- Login -->
+      <section id="login" class="container">
     
         <!-- Start row fluid -->
         <div class="row-fluid"> 
@@ -131,7 +131,7 @@
          <p>&nbsp;</p>
         
         </section>
-        <!-- /Career -->
+        <!-- /login -->
         
         <!-- Call Footer -->
         <?php include_once("php_includes/footer.php"); ?>
