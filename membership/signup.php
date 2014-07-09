@@ -78,7 +78,7 @@
          	<div class="span12">
               <form name="signupform" id="signupform" onsubmit="return false;" class="signup">
                 <div class="email">Username: </div>
-                <input id="username" name="username" type="text" onblur="checkusername()" onkeyup="restrict('username')"  placeholder="Enter Your Username">
+                <input id="username" name="username" type="text" placeholder="Enter Your Username">
                 <span style="display:inline" id="unamestatus"></span>
                 <div class="email">Email Address:</div>
                 <input id="email" name="email" type="text" onfocus="emptyElement('status')" onkeyup="restrict('email')" placeholder="Enter Your Email Address">
@@ -89,7 +89,7 @@
                 <div class="email">Gender:</div>
                 <select id="gender" name="gender" onfocus="emptyElement('status')" class="emailinputselect">
                   <option value=""></option>
-                  <option value="m">Male</option>
+                  <option value="m" selected>Male</option>
                   <option value="f">Female</option>
                 </select>
                 <div class="email">Country:</div>
@@ -127,27 +127,8 @@
         <!-- Call Footer -->
         <?php include_once("../php_includes/footer.php"); ?>
         
-        <!--  Login form -->
-        <div class="modal hide fade in" id="loginForm" aria-hidden="false">
-          <div class="modal-header">
-            <i class="icon-remove" data-dismiss="modal" aria-hidden="true"></i>
-            <h4>Login Form</h4>
-          </div>
-          <!--Modal Body-->
-          <div class="modal-body">
-            <form class="form-inline" action="index.html" method="post" id="form-login">
-              <input type="text" class="input-small" placeholder="Email">
-              <input type="password" class="input-small" placeholder="Password">
-              <label class="checkbox">
-                <input type="checkbox"> Remember me
-              </label>
-              <button type="submit" class="btn btn-primary">Sign in</button>
-            </form>
-            <a href="#">Forgot your password?</a>
-          </div>
-          <!--/Modal Body-->
-        </div>
-        <!--  /Login form -->
+        <!-- Call Login -->
+		<?php include_once("../php_includes/login.php"); ?>
 
 	<script src="../js/vendor/jquery-1.9.1.min.js"></script>
     <script src="../js/vendor/bootstrap.min.js"></script>

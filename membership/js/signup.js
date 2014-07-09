@@ -11,12 +11,11 @@ $(document).ready(function() {
 				}
 			}
 		)
+	
 		
 		$("#username").keyup( function()
 			{
-				if($("#signupform").valid()){
-					restrict('username');
-				}
+				restrict('username');
 			}
 		)
 		

@@ -1,4 +1,11 @@
 <?php
+	include_once("php_includes/check_login_status.php");
+	// If user is already logged in, header that weenis away
+	if($user_ok == true){
+	header("location: ../account/user.php?u=".$_SESSION["username"]);
+		exit();
+	}
+?><?php
 	// AJAX CALLS THIS LOGIN CODE TO EXECUTE
 	if(isset($_POST["e"])){
 	// CONNECT TO THE DATABASE
@@ -123,7 +130,7 @@
                 <button type="submit" id="loginbtn" class="btn btn-primary">Sign in</button>
                 <p id="status"></p>
             </form>
-            <a href="#">Forgot your password?</a>
+            <a href="membership/retrieve.php">Forgot your password?</a>
 
          </div>
          <!-- End row fluid -->
@@ -152,7 +159,7 @@
               </label>
               <button type="submit" class="btn btn-primary">Sign in</button>
             </form>
-            <a href="#">Forgot your password?</a>
+            <a href="membership/retrieve.php">Forgot your password?</a>
           </div>
           <!--/Modal Body-->
         </div>

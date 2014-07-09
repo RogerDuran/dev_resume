@@ -90,7 +90,7 @@ if (is_numeric($username[0])) {
 	$to = "$e";	 
 	$from = "auto_responder@Resume.Graphics.com";
 	$subject = 'Resume.Graphics Account Activation';
-	$url = "dev.resume.kristenclosson.local/membership/controller";
+	$url = "dev.resume.kristenclosson.local/membership";
 	$message = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Resume.Graphics Message</title></head><body style="margin:0px; font-family:Tahoma, Geneva, sans-serif;"><div style="padding:10px; background:#333; font-size:24px; color:#CCC;"><a href="http://www.yoursitename.com"><img src="http://www.yoursitename.com/images/logo.png" width="36" height="30" alt="yoursitename" style="border:none; float:left;"></a>Resume.Graphics Account Activation</div><div style="padding:24px; font-size:17px;">Hello '.$u.',<br /><br />Click the link below to activate your account when ready:<br /><br /><a href="'.$url.'/activation.php?id='.$uid.'&u='.$u.'&e='.$e.'&p='.$p_hash.'">Click here to activate your account now</a><br /><br />Login after successful activation using your:<br />* E-mail Address: <b>'.$e.'</b></div></body></html>';
 	$headers = "From: $from\n";
 			$headers .= "MIME-Version: 1.0\n";

@@ -15,7 +15,7 @@
             <button type="submit" id="loginbtn" class="btn btn-primary">Sign in</button>
             <p id="status"></p>
         </form>
-        <a href="#">Forgot your password?</a>
+        <a href="../membership/retrieve.php">Forgot your password?</a>
     </div>
     <!--/Modal Body-->
 </div>
