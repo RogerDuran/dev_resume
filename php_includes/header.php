@@ -23,7 +23,9 @@
 			
 			if(isset($_SESSION['logged']) || isset($isOwner))
 		  	{ 
-				echo '<li class="login">  <a href="../account/user.php?u='.$_SESSION['logged'].'">Profile</a> </li>'; 
+				echo '<li id="optionHolder">  <a href="../account/user.php?u='.$_SESSION['logged'].'">Profile</a>'; 
+				echo '<div id="accountOption" style="display:none"><a href="../account/settings.php?u='.$_SESSION['logged'].'"> Settings </a> </div>';
+				echo ' </li>';
 				echo '<li >  <a href="../logout.php">Logout</a> </li>';
 			}  
 		  

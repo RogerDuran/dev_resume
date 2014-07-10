@@ -81,7 +81,7 @@
 	
 	#clients .prev,#clients .next{color:#999}
 	
-	.title{background:#2dcc70;color:#fff;padding:20px 0}
+	.title{background:#3991F5;color:#fff;padding:20px 0}
 	
 	.center{text-align:center}
 	
@@ -335,3 +335,39 @@ section#login #loginpageform input[type="text"],section#login #loginpageform inp
 	.edit-resume #edit .div-rounded h2,.div-rounded h3,.div-rounded h4{
 		text-align:center;
 	}
+	
+/* User Settings Style */
+#settings table tr{
+	font-size:12pt;
+}
+
+#settings table tr td:first-child{
+	color:blue;
+	font-size:12pt;
+	font-weight:bold;
+}
+
+#settings table tr td a{
+	font-weight:bold;	
+}
+
+
+/* Extra Menu */
+
+header.navbar #accountOption{
+	background-color:#fff;
+	padding-top: 5px;
+	padding-bottom: 10px;
+	padding-left:10px;
+	padding-right:10px;
+	border-radius:0 0px 3px 3px;
+	color: #333;
+	font-family: "Fjalla One";
+	font-size: 14px;
+	text-transform: uppercase;
+	text-shadow: none;
+	position:absolute;
+	border-left:1px solid #666;
+	border-right:1px solid #666;
+	border-bottom:1px solid #666;
+}

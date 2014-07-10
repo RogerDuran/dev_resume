@@ -143,27 +143,8 @@
         <!-- Call Footer -->
         <?php include_once("php_includes/footer.php"); ?>
         
-        <!--  Login form -->
-        <div class="modal hide fade in" id="loginForm" aria-hidden="false">
-          <div class="modal-header">
-            <i class="icon-remove" data-dismiss="modal" aria-hidden="true"></i>
-            <h4>Login Form</h4>
-          </div>
-          <!--Modal Body-->
-          <div class="modal-body">
-            <form class="form-inline" action="index.html" method="post" id="form-login">
-              <input type="text" class="input-small" placeholder="Email">
-              <input type="password" class="input-small" placeholder="Password">
-              <label class="checkbox">
-                <input type="checkbox"> Remember me
-              </label>
-              <button type="submit" class="btn btn-primary">Sign in</button>
-            </form>
-            <a href="membership/retrieve.php">Forgot your password?</a>
-          </div>
-          <!--/Modal Body-->
-        </div>
-        <!--  /Login form -->
+        <!-- Call Login -->
+		<?php include_once("php_includes/login.php"); ?>
 
 	<script src="js/vendor/jquery-1.9.1.min.js"></script>
     <script src="js/vendor/bootstrap.min.js"></script>

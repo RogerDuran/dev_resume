@@ -46,22 +46,35 @@ function getServername(){
 	return root;
 }
 
-/*
+
 $(document).ready(function() {
 
-	$(document)[0].oncontextmenu = function() { return false;}
+		/*
+		$(document)[0].oncontextmenu = function() { return false;}
+		
+		$(document).mousedown(function(e){
+		  if( e.button == 2 ) {
+			 alert('Sorry, this functionality is disabled');
+			 return false;
+		   } else {
+			 return true;
+		  }
+
+		});
+		*/
 	
-			$(document).mousedown(function(e){
-			  if( e.button == 2 ) {
-				 alert('Sorry, this functionality is disabled');
-				 return false;
-			   } else {
-				 return true;
-			  }
-	
-			});
+		$("#optionHolder").mouseenter(function(e) {
+			$("#accountOption").css("display","block");
+		});
+		
+		$("#optionHolder").mouseleave(function(e) {
+			$("#accountOption").css("display","none");
+		});
+		
 	});
 	
+	
+	
 
-*/
+
 
