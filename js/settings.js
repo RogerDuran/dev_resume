@@ -91,6 +91,8 @@
 			closeOnEscape: true,
 			modal: true,
 			resizable:false,
+			show: 'fade', 
+			hide: 'fade' 
 	  }); // <--------------------------------------- end of password dialog code
   }); 
 	  
@@ -132,6 +134,8 @@
 			closeOnEscape: true,
 			modal: true,
 			resizable:false,
+			show: 'fade', 
+			hide: 'fade' 
 		  }); // <--------------------------------------- end of gender dialog code
 	  });
 	  
@@ -148,6 +152,7 @@
 				  }
 			  }
 		  });
+		  
 		  $("#email_dialog").dialog({
 			  buttons:{
 				  "Save": function(){
@@ -174,6 +179,8 @@
 			closeOnEscape: true,
 			modal: true,
 			resizable:false,
+			show: 'fade', 
+			hide: 'fade' 
 		  }); // <--------------------------------------- end of email dialog code
 	  });
 	  
@@ -217,6 +224,8 @@
 			closeOnEscape: true,
 			modal: true,
 			resizable:false,
+			show: 'fade', 
+			hide: 'fade' 
 		  });
 	  });
 	  

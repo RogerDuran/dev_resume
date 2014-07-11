@@ -222,13 +222,15 @@
                 </form>
             </div>
             
+    
             <div style="display:none" id="email_dialog" title="Change Email">
                 <form id="frmEmail">
                     <div>Email</div>
                     <input id="inpEmail" name="inpEmail" type="text" >
                 </form>
             </div>
-            
+  
+     
              <div style="display:none" id="country_dialog" title="Change Country">
                 <form id="frmCountry">
                     <div>Country</div>
