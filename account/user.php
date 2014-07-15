@@ -196,6 +196,12 @@
   <link rel="apple-touch-icon-precomposed" href="../images/ico/apple-touch-icon-57-precomposed.png">
   
   <link rel="stylesheet" href="../css/ui-lightness/jquery-ui-1.10.4.min.css">
+  
+  <style>
+   section#profile select{
+		width: 200px;	   
+   }
+  </style>
     
     <body>
       <!-- CALL HEADER -->

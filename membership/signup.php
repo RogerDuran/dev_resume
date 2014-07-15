@@ -74,12 +74,14 @@
         <form class="center" name="signupform" id="signupform" onsubmit="return false;"  method="POST">
           <fieldset class="registration-form">
          
-                <div class="control-group">
+                <div class="control-group" style="position: relative;">
                   <!-- Username -->
                   <div class="controls">
                      <div class="text-left">Username:</div>
                     <input type="text" id="username" name="username" placeholder="Username" class="input-xlarge">
-                    <span style="display:inline" id="unamestatus"></span>
+                    <span style="display:none" id="unamestatus"></span>
+                    <img id="statusOk" src="../images/valid.png" style="display:none;position: absolute; right: 15px; top: 40px;">
+                    <img id="statusNot" src="../images/red_cross_mark.png" style="display:none;position: absolute; right: 15px; top: 40px;">
                   </div>
                 </div>   
    
@@ -92,11 +94,13 @@
                 -->
                 
 
-                <div class="control-group">
+                <div class="control-group" style="position: relative;">
                   <!-- E-mail -->
                   <div class="controls">
                     <div class="text-left">Email:</div>
                     <input type="text" id="email" name="email" onfocus="emptyElement('status')" onkeyup="restrict('email')" placeholder="Enter Your Email Address" class="input-xlarge">
+                    <img id="statusEmailOk" src="../images/valid.png" style="display:none;position: absolute; right: 15px; top: 40px;">
+                    <img id="statusEmailNot" src="../images/red_cross_mark.png" style="display:none;position: absolute; right: 15px; top: 40px;">
                   </div>
                 </div>
                 
@@ -158,13 +162,13 @@
                 
                 <div class="clear"></div>
                 <div>
-                   <div class="fpass"><a  data-toggle="modal" href="#termsDialog" onclick="return false" onmousedown="openTerms()">
+                   <div class="fpass"><a  data-toggle="modal" href="#terms" onclick="return false" onmousedown="openTerms()">
                     View the Terms Of Use</a></div>
      
                 </div>
                 
                 <!-- Duplicate Modal-->
-                <div class="modal hide fade in" id="termsDialog" aria-hidden="false">
+                <div class="modal hide fade in" id="terms" aria-hidden="false">
                   <div class="modal-header">
                     <i class="icon-remove" data-dismiss="modal" aria-hidden="true"></i>
                     <h2> Terms of use</h2>
@@ -174,6 +178,14 @@
                           <p ><h5> Term1 </h5>  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer justo mi, volutpat vitae enim vitae, posuere porta augue. Fusce fringilla augue ut ligula fermentum eleifend. Integer ut purus eu nibh tincidunt auctor. Nam ornare mattis quam, ac dictum neque accumsan et. Maecenas suscipit neque quis risus vehicula vehicula. Integer eleifend ipsum sed mauris dignissim cursus. Ut risus magna, lacinia vitae faucibus in, aliquam id leo. Sed quis orci ligula. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce laoreet risus molestie augue scelerisque, et posuere quam mollis. Nulla ultrices dapibus risus, quis mattis nisi varius et. Praesent vel nisl mattis, blandit quam nec, egestas nibh. Vestibulum a orci orci. </p>
                           <p> <h5> Term2 </h5>Proin tempus facilisis nulla, nec sagittis purus aliquet eu. Morbi iaculis sem enim, quis laoreet lectus eleifend ac. Ut semper rhoncus metus. Curabitur ultricies lacinia ligula, ornare suscipit enim congue et. Nullam eget faucibus augue, sit amet ornare diam. Sed mattis dolor magna, vitae lacinia eros vestibulum eget. Sed vulputate a magna sed sollicitudin. </p>
                           <p> <h5> Term3 </h5> Nam auctor odio risus, ut vestibulum magna venenatis sit amet. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque at consequat dui, et ullamcorper turpis. Vestibulum tristique adipiscing eleifend. Nam mollis vitae lacus sed porta. Nunc ut dui sit amet justo egestas fermentum. Aenean ipsum libero, sagittis ac condimentum eu, dapibus ac mi. Nulla pellentesque porta ipsum. Vestibulum iaculis a eros in feugiat. Ut ac metus quis nibh consequat convallis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam sit amet nisi lectus. Integer dictum blandit urna, ac consequat justo hendrerit quis. </p>
+                          
+                   <div class="row">
+                   	<button id="termsAgree" class="myButton"> AGREE </button>
+                   	<button id="termsDisagree" class="myButton"> DISAGREE </button>       
+                   </div>
+                   
+                   <br>
+                          
                    </div>
                    <!--/Duplicate Body-->
                 </div>    

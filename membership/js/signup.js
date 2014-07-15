@@ -1,7 +1,16 @@
 $(document).ready(function() {		
+		clearFields();
 		initialize();
 		validateForm();
+		//checkusername();
+		//checkemail();
     });
+	
+	var agreement = false;
+	
+	function clearFields(){
+		 $("#signupform").trigger('reset');
+	}
 	
 	function initialize(){
 		$("#signupbtn").click( function()
@@ -24,6 +33,22 @@ $(document).ready(function() {
 				checkusername();
 			}
 		)
+		
+		$("#email").blur( function()
+			{
+				checkemail();
+			}
+		)
+		
+		$("#termsAgree").click(function() {
+            agreement = true;
+			$("#terms").modal("hide");
+        });
+		
+		$("#termsDisagree").click(function() {
+            agreement = false;
+			$("#terms").modal("hide");
+        });
 	}
 	
 	function validateForm(){
@@ -80,19 +105,64 @@ $(document).ready(function() {
     function emptyElement(x){
         _(x).innerHTML = "";
     }
+	
     function checkusername(){
         var u = _("username").value;
         if(u != ""){
-        _("unamestatus").innerHTML = 'checking ...';
+        //_("unamestatus").innerHTML = 'checking ...';
             var ajax = ajaxObj("POST", "signup.php");
             ajax.onreadystatechange = function() {
             if(ajaxReturn(ajax) == true) {
-                _("unamestatus").innerHTML = ajax.responseText;
+                //_("unamestatus").innerHTML = ajax.responseText;
+				if(ajax.responseText == "available"){
+					$("#statusNot").css("display","none");
+					$("#statusOk").css("display","inline");
+				}
+				else if(ajax.responseText == "taken"){
+					$("#statusOk").css("display","none");
+					$("#statusNot").css("display","inline");
+				}
               }
             }
             ajax.send("usernamecheck="+u);
         }
+		else{
+			$("#statusOk").css("display","none");
+			$("#statusNot").css("display","none");
+		}
     }
+	
+	function checkemail(){
+	  var e = $("#email").val();
+	  
+	  if(e != ""){
+		  var data = "emailcheck="+e;
+		  $.ajax({
+			  type: "POST",
+			  url: "signup.php",
+			  data: data,
+			  cache: false,
+			  success:  function(data){
+				if(data == "available"){
+					$("#statusEmailNot").css("display","none");
+					$("#statusEmailOk").css("display","inline");					
+				}
+				else if(data == "taken"){
+					$("#statusEmailOk").css("display","none");
+					$("#statusEmailNot").css("display","inline");
+				}
+				else if (data == "notEmail"){
+					$("#statusEmailOk").css("display","none");
+					$("#statusEmailNot").css("display","inline");
+				}
+			  }
+		  });
+	  }
+	  else{
+		  $("#statusEmailNot").css("display","none");
+		  $("#statusEmailOk").css("display","none");
+	  }
+	}
     
     function signup(){
         var u = _("username").value;
@@ -106,7 +176,7 @@ $(document).ready(function() {
             status.innerHTML = "Fill out all of the form data";
         } else if(p1 != p2){
             status.innerHTML = "Your password fields do not match";
-        } else if( _("terms").style.display == "none"){
+        } else if(agreement == false){
             status.innerHTML = "Please view the terms of use";
         } else {
             _("signupbtn").style.display = "none";
@@ -128,7 +198,7 @@ $(document).ready(function() {
     }
     
     function openTerms(){
-        	_("terms").style.display = "block";
+        	//_("terms").style.display = "block";
             emptyElement("status");
     }
     
